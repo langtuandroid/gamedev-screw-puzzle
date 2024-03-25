@@ -1,70 +1,61 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
-public class Key : MonoBehaviour
+namespace Game.Scripts
 {
-    public static Key instance;
-
-    public GameObject locking;
-
-    public GameManager gamemanager;
-    private void Awake()
+    public class Key : MonoBehaviour
     {
-        instance = this;
-    }
+        public static Key instance;
 
-    void Start()
-    {
-        gamemanager=GameManager.instance;
-        
-    }
+        public GameObject locking;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("CUBE"))
+        public GameManager gamemanager;
+        private void Awake()
         {
-            gameObject.GetComponent<Collider>().enabled = false;
-            gameObject.transform.GetComponentInChildren<DOTweenAnimation>().DOComplete();
-            if (AudioManager.instance)
+            instance = this;
+        }
+        void Start()
+        {
+            gamemanager = GameManager.instance;
+        }
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("CUBE"))
             {
-                gamemanager.vibration();
-                AudioManager.instance.Play("Key");
-                gamemanager.keycollect = true;
-            }
-            gameObject.transform.DOMove(locking.gameObject.transform.position, 0.5f).OnComplete(() =>
-            {
-                transform.GetComponentInChildren<MeshRenderer>().enabled = false;
+                gameObject.GetComponent<Collider>().enabled = false;
+                gameObject.transform.GetComponentInChildren<DOTweenAnimation>().DOComplete();
                 if (AudioManager.instance)
                 {
-                    AudioManager.instance.Play("Lock");
-                    gamemanager.vibration();
+                    gamemanager.Vibration();
+                    AudioManager.instance.Play("Key");
                 }
-                locking.GetComponentInChildren<DOTweenAnimation>().DOPlay();
-                if (!locking.transform.GetComponentInChildren<ParticleSystem>().isPlaying)
+                gameObject.transform.DOMove(locking.gameObject.transform.position, 0.5f).OnComplete(() =>
                 {
-                    locking.transform.GetComponentInChildren<ParticleSystem>().Play();
-                }
+                    transform.GetComponentInChildren<MeshRenderer>().enabled = false;
+                    if (AudioManager.instance)
+                    {
+                        AudioManager.instance.Play("Lock");
+                        gamemanager.Vibration();
+                    }
+                    locking.GetComponentInChildren<DOTweenAnimation>().DOPlay();
+                    if (!locking.transform.GetComponentInChildren<ParticleSystem>().isPlaying)
+                    {
+                        locking.transform.GetComponentInChildren<ParticleSystem>().Play();
+                    }
             
-            });
-        }
+                });
+            }
        
-    }
+        }
 
-    public void Locked()
-    {
-        locking.transform.parent.GetChild(1).tag = "BOLT";
-        transform.gameObject.SetActive(false);
-        locking.transform.SetParent(null);
-        locking.GetComponent<Rigidbody>().isKinematic = false;
-    }
+        public void Locked()
+        {
+            locking.transform.parent.GetChild(1).tag = "BOLT";
+            transform.gameObject.SetActive(false);
+            locking.transform.SetParent(null);
+            locking.GetComponent<Rigidbody>().isKinematic = false;
+        }
     
+    }
 }

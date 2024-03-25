@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Game.Scripts;
 using UnityEngine;
 using UnityEngine.U2D.IK;
 
@@ -80,7 +81,7 @@ public class KingKong : MonoBehaviour
         DOVirtual.DelayedCall(2.5f, () =>
         {
             transform.GetComponent<DOTweenAnimation>().DOPlay();
-            if (!UIManager.INSTANCE.win)
+            if (!UIManager.instance.win)
             {
                 DOVirtual.DelayedCall(3f, () =>
                 {

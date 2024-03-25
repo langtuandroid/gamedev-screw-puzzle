@@ -52,7 +52,7 @@ EditorBuildSettings:
     guid: ccad6ba9e8017364cb633e0a63820ca8
   - enabled: 1
     path: Assets/Game/Scenes/Special Levels/Wednesday.unity
-    guid: e54c4290665b99c4f80a917003cbc109
+    guid: 766a42ec2ec700b4cb01bae1fe97449c
   - enabled: 1
     path: Assets/Game/Scenes/Level 15.unity
     guid: a0ac4d777d7db5e4984bb3cad851b548

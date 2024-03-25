@@ -1,291 +1,270 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
-using DG.Tweening;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+namespace Game.Scripts
 {
-    public static UIManager INSTANCE;
-
-    public GameObject winpanel;
-    public GameObject nextbutton;
-    public GameObject retrybutton;
-    public TextMeshProUGUI level;
-    public List<int> helplevel;
-
-    [Header("LevelNumber Bar")] public Image lvlBgFill;
-    public GameObject[] lvlNumImgs;
-    public Sprite unFilled, filling;
-    public List<Sprite> specialImages;
-    public static int LvlNum = 0;
-
-    public static int levelAttempts;
-    public bool win;
-
-    [Header("Help Text")] [Header("unpin help")]
-    public GameObject PinObject;
-
-    public GameObject FillObject;
-    [Header("Key Help")] public GameObject KeyText;
-
-    public bool help;
-
-    public bool pin;
-    public bool fill;
-
-    public static int currentLvl = 0;
-
-    private void Awake()
+    public class UIManager : MonoBehaviour
     {
-        INSTANCE = this;
-        LvlNum = PlayerPrefs.GetInt("levelnumber", 1);
-        //LvlNum = SceneManager.GetActiveScene().buildIndex;
-        LevelNumberHandler();
-    }
+        public static UIManager instance;
+        [SerializeField] private GameObject _winPanel;
+        [SerializeField] private List<int> _helpLevel;
+        
+        [Header("LevelNumber Bar")] 
+        [SerializeField] private Image _lvlBgFill;
+        [SerializeField] private GameObject[] _lvlNumImages;
+        [SerializeField] private Sprite _filling;
+        [SerializeField] private List<Sprite> _specialImages;
+        private static int _lvlNum;
+        private static int _levelAttempts;
+        public bool win { get; set; }
 
-    void Start()
-    {
-        if (helplevel.Contains(LvlNum))
+        [Header("Help Text")] 
+        [SerializeField] private GameObject _pinObject;
+        [SerializeField] private GameObject _fillObject;
+        [Header("Key Help")] 
+        [SerializeField] private GameObject _keyText;
+        public bool help { get; set; }
+        public bool pin { get; set; }
+        public bool fill { get; set; }
+        public static int currentLvl = 0;
+        private AudioManager _audioManager;
+
+        private void Awake()
         {
-            if (PinObject != null && FillObject != null)
+            instance = this;
+            _lvlNum = PlayerPrefs.GetInt("levelnumber", 1);
+            LevelNumberHandler();
+            
+        }
+
+        void Start()
+        {
+            _audioManager = AudioManager.instance;
+            
+            if (_helpLevel.Contains(_lvlNum))
             {
-                help = true;
+                if (_pinObject != null && _fillObject != null)
+                {
+                    help = true;
+                }
+
+                if (_pinObject != null && _fillObject != null)
+                {
+                    pin = true;
+                    fill = false;
+                    if (pin)
+                    {
+                        _pinObject.SetActive(true);
+                    }
+                }
             }
 
-            if (PinObject != null && FillObject != null)
+            if (_keyText != null)
             {
-                pin = true;
-                fill = false;
-                if (pin)
+                _keyText.SetActive(true);
+            }
+        }
+
+
+        void Update()
+        {
+
+            if (help)
+            {
+                if (fill && !pin)
                 {
-                    PinObject.SetActive(true);
+                    _pinObject.SetActive(false);
+                    _fillObject.SetActive(true);
+                }
+            }
+
+            if (help)
+            {
+                if (!fill && !pin)
+                {
+                    _pinObject.SetActive(false);
+                    _fillObject.SetActive(false);
                 }
             }
         }
 
-        if (KeyText != null)
+        private void LevelNumberHandler()
         {
-            KeyText.SetActive(true);
+            var lvlNumber = HandlingUnlockBasedOnLevel();
+            print(lvlNumber + ":;" + _lvlNum);
+            _lvlBgFill.DOFillAmount((lvlNumber - 1) / 5f, 0.25f).SetEase(Ease.Flash);
+            for (var i = 0; i < _lvlNumImages.Length - 1; i++)
+            {
+                if (i < lvlNumber - 1)
+                {
+                    _lvlNumImages[i].GetComponent<Image>().color = Color.green;
+                }
+                else if (i == lvlNumber - 1) _lvlNumImages[i].GetComponent<Image>().sprite = _filling;
+            }
+
+            switch (lvlNumber)
+            {
+                case 1:
+                    _lvlNumImages[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _lvlNum.ToString();
+                    _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 1).ToString();
+                    _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 2).ToString();
+                    _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 3).ToString();
+                    BossLevelImg(true);
+                    break;
+                case 2:
+                    _lvlNumImages[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 1).ToString();
+                    _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _lvlNum.ToString();
+                    _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 1).ToString();
+                    _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 2).ToString();
+                    BossLevelImg(false);
+                    break;
+                case 3:
+                    _lvlNumImages[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 2).ToString();
+                    _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 1).ToString();
+                    _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _lvlNum.ToString();
+                    _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 1).ToString();
+                    BossLevelImg(false);
+                    break;
+                case 4:
+                    _lvlNumImages[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 3).ToString();
+                    _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 2).ToString();
+                    _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 1).ToString();
+                    _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _lvlNum.ToString();
+                    BossLevelImg(false);
+                    break;
+                case 5:
+                    _lvlNumImages[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 4).ToString();
+                    _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 3).ToString();
+                    _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 2).ToString();
+                    _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 1).ToString();
+                    BossLevelImg(false);
+                    break;
+            }
         }
-        
-        // level.text = "Level " + LvlNum.ToString();
-        //levelnum = currentLevel;
-        //AudioManager.instance.Play("BACKGROUND");
-        
+
+        private void BossLevelImg(bool call)
+        {
+            var lvlNo = PlayerPrefs.GetInt("SpecialImg", 0);
+            if (_lvlNum > 5 && call && currentLvl != _lvlNum)
+            {
+                lvlNo = lvlNo >= _specialImages.Count - 1 ? _specialImages.Count - 1 : ++lvlNo;
+                currentLvl = _lvlNum;
+            }
+
+            _lvlNumImages[^1].GetComponent<Image>().sprite = _specialImages[lvlNo];
+            PlayerPrefs.SetInt("SpecialImg", lvlNo);
+            print(lvlNo + "::");
+        }
+
+
+        private int HandlingUnlockBasedOnLevel()
+        {
+            var currentlvlnum = 0;
+
+            var temp = _lvlNum;
+
+            if (temp.ToString().Length > 1)
+            {
+                if (temp.ToString().EndsWith("1") || temp.ToString().EndsWith("6"))
+                {
+                    currentlvlnum = 1;
+                }
+                else if (temp.ToString().EndsWith("2") || temp.ToString().EndsWith("7"))
+                {
+                    currentlvlnum = 2;
+                }
+                else if (temp.ToString().EndsWith("3") || temp.ToString().EndsWith("8"))
+                {
+                    currentlvlnum = 3;
+                }
+                else if (temp.ToString().EndsWith("4") || temp.ToString().EndsWith("9"))
+                {
+                    currentlvlnum = 4;
+                }
+                else if (temp.ToString().EndsWith("5") || temp.ToString().EndsWith("0"))
+                {
+                    currentlvlnum = 5;
+                }
+            }
+            else
+            {
+                if (temp.ToString().StartsWith("1") || temp.ToString().StartsWith("6"))
+                {
+                    currentlvlnum = 1;
+                }
+                else if (temp.ToString().StartsWith("2") || temp.ToString().StartsWith("7"))
+                {
+                    currentlvlnum = 2;
+                }
+                else if (temp.ToString().StartsWith("3") || temp.ToString().StartsWith("8"))
+                {
+                    currentlvlnum = 3;
+                }
+                else if (temp.ToString().StartsWith("4") || temp.ToString().StartsWith("9"))
+                {
+                    currentlvlnum = 4;
+                }
+                else if (temp.ToString().StartsWith("5") || temp.ToString().StartsWith("0"))
+                {
+                    currentlvlnum = 5;
+                }
+            }
+
+            return currentlvlnum;
+        }
+
+        public void NextlevelButton()
+        {
+            if (_audioManager)
+            {
+                _audioManager.Play("Fill");
+                GameManager.instance.Vibration();
+            }
+
+            Debug.Log($"Level Attempts::{_levelAttempts}");
+            _levelAttempts = 0;
+            if (PlayerPrefs.GetInt("Level", 1) >= SceneManager.sceneCountInBuildSettings - 1)
+            {
+                SceneManager.LoadScene(Random.Range(0, SceneManager.sceneCountInBuildSettings - 1));
+                PlayerPrefs.SetInt("Level", (PlayerPrefs.GetInt("Level", 1) + 1));
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                PlayerPrefs.SetInt("Level", (PlayerPrefs.GetInt("Level", 1) + 1));
+            }
+
+            PlayerPrefs.SetInt("levelnumber", PlayerPrefs.GetInt("levelnumber", 1) + 1);
+        }
+
+        public void RetryButton()
+        {
+            if (_audioManager)
+            {
+                _audioManager.Play("Fill");
+                GameManager.instance.Vibration();
+            }
+            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            _levelAttempts++;
+            Debug.Log($"Level Attempts::{_levelAttempts}");
+        }
+
+        public void WinPanel()
+        {
+            StartCoroutine(WinActive());
+        }
+
+        private IEnumerator WinActive()
+        {
+            yield return new WaitForSeconds(0.5f);
+            _winPanel.SetActive(true);
+        }
     }
-
-
-    void Update()
-    {
-        /*if (levelnum == helplevel)
-        {
-            if (fill && !pin)
-            {
-                PinObject.SetActive(false);
-                FillObject.SetActive(true);
-            }
-        }*/
-        if (help)
-        {
-            if (fill && !pin)
-            {
-                PinObject.SetActive(false);
-                FillObject.SetActive(true);
-            }
-        }
-
-        if (help)
-        {
-            if (!fill && !pin)
-            {
-                PinObject.SetActive(false);
-                FillObject.SetActive(false);
-            }
-        }
-    }
-
-    private void LevelNumberHandler()
-    {
-        var lvlNumber = HandlingUnlockBasedOnLevel();
-        print(lvlNumber + ":;" + LvlNum);
-        lvlBgFill.DOFillAmount((lvlNumber - 1) / 5f, 0.25f).SetEase(Ease.Flash);
-        for (var i = 0; i < lvlNumImgs.Length - 1; i++)
-        {
-            if (i < lvlNumber - 1)
-            {
-                lvlNumImgs[i].GetComponent<Image>().color = Color.green;
-            }
-            else if (i == lvlNumber - 1) lvlNumImgs[i].GetComponent<Image>().sprite = filling;
-        }
-
-        switch (lvlNumber)
-        {
-            case 1:
-                lvlNumImgs[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LvlNum.ToString();
-                lvlNumImgs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum + 1).ToString();
-                lvlNumImgs[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum + 2).ToString();
-                lvlNumImgs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum + 3).ToString();
-                BossLevelImg(true);
-                break;
-            case 2:
-                lvlNumImgs[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 1).ToString();
-                lvlNumImgs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LvlNum.ToString();
-                lvlNumImgs[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum + 1).ToString();
-                lvlNumImgs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum + 2).ToString();
-                BossLevelImg(false);
-                break;
-            case 3:
-                lvlNumImgs[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 2).ToString();
-                lvlNumImgs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 1).ToString();
-                lvlNumImgs[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LvlNum.ToString();
-                lvlNumImgs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum + 1).ToString();
-                BossLevelImg(false);
-                break;
-            case 4:
-                lvlNumImgs[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 3).ToString();
-                lvlNumImgs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 2).ToString();
-                lvlNumImgs[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 1).ToString();
-                lvlNumImgs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LvlNum.ToString();
-                BossLevelImg(false);
-                break;
-            case 5:
-                lvlNumImgs[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 4).ToString();
-                lvlNumImgs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 3).ToString();
-                lvlNumImgs[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 2).ToString();
-                lvlNumImgs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (LvlNum - 1).ToString();
-                BossLevelImg(false);
-                break;
-        }
-    }
-
-    private void BossLevelImg(bool call)
-    {
-        var lvlNo = PlayerPrefs.GetInt("SpecialImg", 0);
-        if (LvlNum > 5 && call && currentLvl != LvlNum)
-        {
-            lvlNo = lvlNo >= specialImages.Count - 1 ? specialImages.Count - 1 : ++lvlNo;
-            currentLvl = LvlNum;
-        }
-
-        lvlNumImgs[^1].GetComponent<Image>().sprite = specialImages[lvlNo];
-        PlayerPrefs.SetInt("SpecialImg", lvlNo);
-        print(lvlNo + "::");
-    }
-
-
-    private int HandlingUnlockBasedOnLevel()
-    {
-        var currentlvlnum = 0;
-
-        var temp = LvlNum;
-
-        if (temp.ToString().Length > 1)
-        {
-            if (temp.ToString().EndsWith("1") || temp.ToString().EndsWith("6"))
-            {
-                currentlvlnum = 1;
-            }
-            else if (temp.ToString().EndsWith("2") || temp.ToString().EndsWith("7"))
-            {
-                currentlvlnum = 2;
-            }
-            else if (temp.ToString().EndsWith("3") || temp.ToString().EndsWith("8"))
-            {
-                currentlvlnum = 3;
-            }
-            else if (temp.ToString().EndsWith("4") || temp.ToString().EndsWith("9"))
-            {
-                currentlvlnum = 4;
-            }
-            else if (temp.ToString().EndsWith("5") || temp.ToString().EndsWith("0"))
-            {
-                currentlvlnum = 5;
-            }
-        }
-        else
-        {
-            if (temp.ToString().StartsWith("1") || temp.ToString().StartsWith("6"))
-            {
-                currentlvlnum = 1;
-            }
-            else if (temp.ToString().StartsWith("2") || temp.ToString().StartsWith("7"))
-            {
-                currentlvlnum = 2;
-            }
-            else if (temp.ToString().StartsWith("3") || temp.ToString().StartsWith("8"))
-            {
-                currentlvlnum = 3;
-            }
-            else if (temp.ToString().StartsWith("4") || temp.ToString().StartsWith("9"))
-            {
-                currentlvlnum = 4;
-            }
-            else if (temp.ToString().StartsWith("5") || temp.ToString().StartsWith("0"))
-            {
-                currentlvlnum = 5;
-            }
-        }
-
-        return currentlvlnum;
-    }
-
-    public void NextlevelButton()
-    {
-        //if (ISManager.instance) ISManager.instance.ShowInterstitialAds();
-
-        if (AudioManager.instance)
-        {
-            AudioManager.instance.Play("Fill");
-            GameManager.instance.vibration();
-        }
-
-        Debug.Log($"Level Attempts::{levelAttempts}");
-        levelAttempts = 0;
-        //NEXT BUTTON CALL
-        if (PlayerPrefs.GetInt("Level", 1) >= SceneManager.sceneCountInBuildSettings - 1)
-        {
-            SceneManager.LoadScene(Random.Range(0, SceneManager.sceneCountInBuildSettings - 1));
-            PlayerPrefs.SetInt("Level", (PlayerPrefs.GetInt("Level", 1) + 1));
-        }
-        else
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            PlayerPrefs.SetInt("Level", (PlayerPrefs.GetInt("Level", 1) + 1));
-        }
-
-        PlayerPrefs.SetInt("levelnumber", PlayerPrefs.GetInt("levelnumber", 1) + 1);
-    }
-
-    public void retryButton()
-    {
-        if (AudioManager.instance)
-        {
-            AudioManager.instance.Play("Fill");
-            GameManager.instance.vibration();
-        }
-
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        levelAttempts++;
-        Debug.Log($"Level Attempts::{levelAttempts}");
-    }
-
-    public void Winpanel()
-    {
-        StartCoroutine(winactive());
-    }
-
-    IEnumerator winactive()
-    {
-        yield return new WaitForSeconds(0.5f);
-        winpanel.SetActive(true);
-        //StartCoroutine(nextWait());
-    }
-    /*public void restrtbuttonsymbol()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }*/
 }

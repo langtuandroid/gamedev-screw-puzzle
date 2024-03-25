@@ -1,47 +1,39 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBolt : MonoBehaviour
+namespace Game.Scripts
 {
-    public GameObject connectedBody;
-    public List<GameObject> connectedBodylist;
-    public List<GameObject> previousbodies = new List<GameObject>();
-
-    public GameManager gamemanger;
-    void Start()
+    public class NewBolt : MonoBehaviour
     {
-        gamemanger=GameManager.instance;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("CUBE"))
+        public List<GameObject> connectedBodylist;
+        public GameManager gamemanger;
+        void Start()
         {
-            if (gamemanger.gamestate == GameManager.State.Idle)
+            gamemanger=GameManager.instance;
+        }
+    
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.CompareTag("CUBE"))
             {
-                if (!connectedBodylist.Contains(other.gameObject))
+                if (gamemanger.gamestate == GameManager.State.Idle)
                 {
-                    connectedBodylist.Add(other.gameObject);
+                    if (!connectedBodylist.Contains(other.gameObject))
+                    {
+                        connectedBodylist.Add(other.gameObject);
+                    }
                 }
             }
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("CUBE"))
+        private void OnTriggerExit(Collider other)
         {
-            if (connectedBodylist.Contains(other.gameObject))
+            if (other.gameObject.CompareTag("CUBE"))
             {
-                connectedBodylist.Remove(other.gameObject);
+                if (connectedBodylist.Contains(other.gameObject))
+                {
+                    connectedBodylist.Remove(other.gameObject);
+                }
             }
         }
     }

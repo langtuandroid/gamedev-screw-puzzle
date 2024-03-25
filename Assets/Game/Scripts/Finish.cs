@@ -1,47 +1,32 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Finish : MonoBehaviour
+namespace Game.Scripts
 {
-    public static Finish instance;
+    public class Finish : MonoBehaviour
+    {
+        public static Finish instance;
     
-    public ParticleSystem blast;
+        public ParticleSystem blast;
 
-    private void Awake()
-    {
-        instance = this;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-   
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("CUBE"))
+        private void Awake()
         {
-            GameManager.instance.donecount++;
-            if (other.gameObject.GetComponentInChildren<Rigidbody>().isKinematic == true)
+            instance = this;
+        }
+    
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("CUBE"))
             {
-                other.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
-            }
+                GameManager.instance.donecount++;
+                if (other.gameObject.GetComponentInChildren<Rigidbody>().isKinematic == true)
+                {
+                    other.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
+                }
             
-            Destroy(other.gameObject.GetComponent<Rigidbody2D>());
-            Destroy(other.gameObject.GetComponent<PolygonCollider2D>());
+                Destroy(other.gameObject.GetComponent<Rigidbody2D>());
+                Destroy(other.gameObject.GetComponent<PolygonCollider2D>());
            
+            }
         }
     }
 }

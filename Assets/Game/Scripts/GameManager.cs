@@ -1,311 +1,278 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
 using Dreamteck.Splines;
-using Unity.VisualScripting;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
+using UnityEngine;
 
-public class GameManager : MonoBehaviour
+namespace Game.Scripts
 {
-    public static GameManager instance;
-
-    public enum Modes
+    public class GameManager : MonoBehaviour
     {
-        Null,
-        Tiger,
-        BirdsCats,
-        Elephant,
-        Wednesday,
-        Pig,
-        Kingkong,
-        KingKong1,
-        Dogs,
-    }
-    public Modes gamemodes;
+        public static GameManager instance;
+
+        public enum Modes
+        {
+            Null,
+            Tiger,
+            BirdsCats,
+            Elephant,
+            Wednesday,
+            Pig,
+            Kingkong,
+            KingKong1,
+            Dogs,
+        }
+        public Modes gamemodes;
     
-    public enum State
-    {
-        Null,
-        Idle,
-        Select,
-        Done,
-    }
-    public State gamestate;
+        public enum State
+        {
+            Null,
+            Idle,
+            Select,
+            Done,
+        }
+        public State gamestate;
     
-    [Header("Bolt Ui Move")] public List<GameObject> selected;
-    public List<GameObject> doneObjects;
+        [Header("Bolt Ui Move")] public List<GameObject> selected;
 
-    public GameObject uiimage;
+        public GameObject uiimage;
 
-    [Header("Bolt Shifting")] public List<GameObject> selectedBolt;
-    public GameObject dupPlug;
-    public GameObject dupcolider;
+        [Header("Bolt Shifting")] 
+        public GameObject dupPlug;
+        public GameObject dupcolider;
 
-    public int totalcount;
-    public int donecount;
+        public int totalcount;
+        public int donecount;
+        public GameObject fillPartical;
 
-    /*public GameObject keyparticle;
-    public GameObject lockparticle;*/
+        [Header("ANIMAL")] 
+        public GameObject Animal;
+        public GameObject thief;
+        public GameObject player;
+        public SplineComputer playerspline;
 
-    public GameObject fillPartical;
-
-    [Header("ANIMAL")] public bool animal;
-    public GameObject Animal;
-    public GameObject AnimalMovePos;
-    public GameObject thief;
-    public GameObject player;
-    public SplineComputer playerspline;
-
-    [Header("Birds or cats")]
-    public bool Birds;
-    public bool cats;
-    public bool Dogs,Rabbit,Fox,Zebra,Dear,Flamingo;
-    public List<GameObject> birds;
-    public List<DOTweenAnimation> birdsanim;
-    public List<GameObject> birds2;
-    public List<DOTweenAnimation> birdsanim2;
+        [Header("Birds or cats")]
+        public bool Birds;
+        public bool cats;
+        public bool Dogs,Rabbit,Fox,Zebra,Dear,Flamingo;
+        public List<GameObject> birds;
+        public List<DOTweenAnimation> birdsanim;
+        public List<GameObject> birds2;
+        public List<DOTweenAnimation> birdsanim2;
 
    
 
-    public GameObject cagedoor;
-    public bool keycollect;
-    public bool test;
-    public GameObject policeMan;
-    public GameObject sleepeffect;
+        public GameObject cagedoor;
+        public GameObject policeMan;
+        public GameObject sleepeffect;
 
-    public bool Fail;
-    private void Awake()
-    {
-        instance = this;
-    }
-
-    void Start()
-    {
-        gamestate = State.Done;
-        if (Board.instance)
+        private bool Fail;
+        private void Awake()
         {
-            transform.position = Board.instance.transform.position;
+            instance = this;
         }
-        dupcolider.GetComponent<CircleCollider2D>().enabled = false;
-        Vibration.Init();
-    }
-    public bool once;
-    void Update()
-    {
-        if (totalcount == donecount /*|| test*/)
-        {
-            if (!UIManager.INSTANCE.win && gamemodes==Modes.Null)
-            {
-                winning();
-            }
-            
-            if (gamemodes == Modes.BirdsCats || gamemodes==Modes.Dogs)
-            {
-                /*if (test && !once)
-                {
-                    once = true;
-                    Cameramove.Instance.SecondChange();
-                }*/
 
-                if (totalcount == donecount && !once)
+        void Start()
+        {
+            gamestate = State.Done;
+            if (Board.instance)
+            {
+                transform.position = Board.instance.transform.position;
+            }
+            dupcolider.GetComponent<CircleCollider2D>().enabled = false;
+            Scripts.Vibration.Init();
+        }
+        public bool once;
+        void Update()
+        {
+            if (totalcount == donecount /*|| test*/)
+            {
+                if (!UIManager.instance.win && gamemodes==Modes.Null)
                 {
-                    Cameramove.Instance.SecondChange();
+                    winning();
+                }
+            
+                if (gamemodes == Modes.BirdsCats || gamemodes==Modes.Dogs)
+                {
+                    if (totalcount == donecount && !once)
+                    {
+                        CameraMove.Instance.SecondChange();
+                        once = true;
+                    }
+                }
+            
+                if ((gamemodes == Modes.Tiger || gamemodes == Modes.Elephant || gamemodes==Modes.Pig) && !once)
+                {
+                    CameraMove.Instance.SecondChange();
                     once = true;
-                    //keycollect = false;
-                    //AnimalAnimation();
+                    DOVirtual.DelayedCall(4.2f, () =>
+                    {
+                        StartCoroutine(policechasewait());
+                    });
+
+                }
+
+                if (gamemodes == Modes.Wednesday && !once)
+                {
+                    CameraMove.Instance.SecondChange();
+                    once = true;
+                }
+
+                if (gamemodes == Modes.Kingkong && !once)
+                {
+                    once = true;
+                    CameraMove.Instance.SecondChange();
+                }
+                if (gamemodes == Modes.KingKong1 && !once)
+                {
+                    once = true;
+                    CameraMove.Instance.SecondChange();
+                    DOVirtual.DelayedCall(4.2f, () =>
+                    {
+                        if (AudioManager.instance)
+                        {
+                            AudioManager.instance.Play("KingKong");
+                        }
+                        StartCoroutine(policechasewait());
+                    });
                 }
             }
+        
+            if (Fail && !once)
+            {
+                CameraMove.Instance.Fail();
+                once = true;
+            }
+
+        }
+        public void winning()
+        {
+            Finish.instance.blast.Play();
+            AudioManager.instance.Play("Win");
+            UIManager.instance.win = true;
+            UIManager.instance.WinPanel();
+        }
+    
+        public void TigerAttack()
+        {
+            Animal.gameObject.GetComponent<Animator>().SetTrigger("Walk");
+            Animal.transform.DOMove(new Vector3(0, Animal.transform.position.y, 0.5f), 1.5f).SetEase(Ease.Linear);
+            DOVirtual.DelayedCall(1.25f, () =>
+            {
+                Animal.transform.DOLocalRotate(new Vector3(0, 0, -65), 0.1f, RotateMode.LocalAxisAdd)
+                    .SetEase(Ease.Linear);
+            });
+            DOVirtual.DelayedCall(1.5f,() =>
+            {
             
-            if ((gamemodes == Modes.Tiger || gamemodes == Modes.Elephant || gamemodes==Modes.Pig) && !once)
+                Animal.transform.DOMove(new Vector3(thief.transform.localPosition.x-0.5f, Animal.transform.position.y, thief.transform.localPosition.z+1.5f), 1f).SetEase(Ease.Linear).OnUpdate(
+                    () =>
+                    {
+                        Animal.gameObject.GetComponent<Animator>().SetTrigger("Attack");
+                        player.GetComponent<Animator>().SetTrigger("Run");
+                        player.GetComponent<SplineFollower>().enabled = true;
+                        player.GetComponent<SplineFollower>().spline = playerspline;
+                        DOVirtual.DelayedCall(0.4f, () =>
+                        {
+                            thief.GetComponent<Animator>().SetTrigger("Fall");
+                        });
+
+                    });
+            });
+            if (!UIManager.instance.win)
             {
-                Cameramove.Instance.SecondChange();
-                //TigerAttack();
-                once = true;
-                DOVirtual.DelayedCall(4.2f, () =>
+                DOVirtual.DelayedCall(5f, () =>
                 {
-                    StartCoroutine(policechasewait());
+                    winning();
                 });
-
+            }
+        }
+    
+        public void DoorOpen()
+        {
+            if (gamemodes == Modes.Kingkong)
+            {
+                cagedoor.GetComponent<Rigidbody>().isKinematic = false;
+                KingKong.instance.kingkongfun();
             }
 
-            if (gamemodes == Modes.Wednesday && !once)
+            else
             {
-                Cameramove.Instance.SecondChange();
-                once = true;
+                if (AudioManager.instance)
+                {
+                    AudioManager.instance.Play("Door");
+                }
+                cagedoor.transform.DOLocalRotate(new Vector3(0, -120f, 0), 1f,RotateMode.LocalAxisAdd).SetEase(Ease.Linear).OnComplete(
+                    () =>
+                    {
+                        if (gamemodes == Modes.Tiger)
+                        {
+                            AudioManager.instance.Play("Cheetah");
+                        }
+                        AnimalAnimation();
+                
+                    });
+            }
+        }
+        public void AnimalAnimation()
+        {
+        
+            if (gamemodes == Modes.Tiger)
+            {
+                TigerAttack();
+            }
+            if (gamemodes==Modes.BirdsCats || gamemodes==Modes.Dogs)
+            {
+                birdscats();
+            }
+        
+            if (gamemodes == Modes.Wednesday)
+            {
+                Wednesday.instance.WednesdayDone();
+                print("Wednesday");
             }
 
-            if (gamemodes == Modes.Kingkong && !once)
+            if (gamemodes==Modes.Elephant)
             {
-                once = true;
-                Cameramove.Instance.SecondChange();
-            }
-            if (gamemodes == Modes.KingKong1 && !once)
-            {
-                once = true;
-                Cameramove.Instance.SecondChange();
-                DOVirtual.DelayedCall(4.2f, () =>
+                Animal.GetComponent<Animator>().SetTrigger("Run");
+            
+                DOVirtual.DelayedCall(0.3f, () =>
                 {
                     if (AudioManager.instance)
                     {
-                        AudioManager.instance.Play("KingKong");
+                        AudioManager.instance.Play("Elephant");
                     }
-                    StartCoroutine(policechasewait());
+                    Animal.GetComponent<DOTweenAnimation>().DOPlay();
                 });
             }
-            
-            /*if ((gamemodes != Modes.Null && !UIManager.INSTANCE.win) && !once)
+            if (gamemodes == Modes.Pig)
             {
-                once = true;
-                Cameramove.Instance.SecondChange();
-                
-                DOVirtual.DelayedCall(4.5f, () =>
+                Animal.GetComponent<Animator>().SetTrigger("Run");
+                Animal.transform.DOMoveY(Animal.transform.position.y-1.5f,0.02f);
+                DOVirtual.DelayedCall(0.3f, () =>
                 {
-                    StartCoroutine(policechasewait());
-                });
-            }*/
-            
-        }
-        
-        if (Fail && !once)
-        {
-            Cameramove.Instance.fail();
-            once = true;
-        }
-
-    }
-    public void winning()
-    {
-        Finish.instance.blast.Play();
-        AudioManager.instance.Play("Win");
-        UIManager.INSTANCE.win = true;
-        UIManager.INSTANCE.Winpanel();
-    }
-    
-    public void TigerAttack()
-    {
-        Animal.gameObject.GetComponent<Animator>().SetTrigger("Walk");
-        Animal.transform.DOMove(new Vector3(0, Animal.transform.position.y, 0.5f), 1.5f).SetEase(Ease.Linear);
-        DOVirtual.DelayedCall(1.25f, () =>
-        {
-            Animal.transform.DOLocalRotate(new Vector3(0, 0, -65), 0.1f, RotateMode.LocalAxisAdd)
-                .SetEase(Ease.Linear);
-        });
-        DOVirtual.DelayedCall(1.5f,() =>
-        {
-            
-            Animal.transform.DOMove(new Vector3(thief.transform.localPosition.x-0.5f, Animal.transform.position.y, thief.transform.localPosition.z+1.5f), 1f).SetEase(Ease.Linear).OnUpdate(
-                () =>
-                {
-                    Animal.gameObject.GetComponent<Animator>().SetTrigger("Attack");
-                    player.GetComponent<Animator>().SetTrigger("Run");
-                    player.GetComponent<SplineFollower>().enabled = true;
-                    player.GetComponent<SplineFollower>().spline = playerspline;
-                    DOVirtual.DelayedCall(0.4f, () =>
+                    if (AudioManager.instance)
                     {
-                        thief.GetComponent<Animator>().SetTrigger("Fall");
-                    });
-
-                });
-        });
-        if (!UIManager.INSTANCE.win)
-        {
-            DOVirtual.DelayedCall(5f, () =>
-            {
-                winning();
-            });
-        }
-    }
-    
-    public void DoorOpen()
-    {
-        //cagedoor.GetComponent<DOTweenAnimation>().DOPlay();
-        if (gamemodes == Modes.Kingkong)
-        {
-            cagedoor.GetComponent<Rigidbody>().isKinematic = false;
-            KingKong.instance.kingkongfun();
-        }
-
-        else
-        {
-            if (AudioManager.instance)
-            {
-                AudioManager.instance.Play("Door");
-            }
-            cagedoor.transform.DOLocalRotate(new Vector3(0, -120f, 0), 1f,RotateMode.LocalAxisAdd).SetEase(Ease.Linear).OnComplete(
-                () =>
-                {
-                    if (gamemodes == Modes.Tiger)
-                    {
-                        AudioManager.instance.Play("Cheetah");
+                        AudioManager.instance.Play("Pig");
                     }
-                    AnimalAnimation();
-                
+                    Animal.GetComponent<DOTweenAnimation>().DOPlay();
                 });
-        }
-    }
-    public void AnimalAnimation()
-    {
-        
-        if (gamemodes == Modes.Tiger)
-        {
-            TigerAttack();
-        }
-        if (gamemodes==Modes.BirdsCats || gamemodes==Modes.Dogs)
-        {
-            birdscats();
-        }
-        
-        if (gamemodes == Modes.Wednesday)
-        {
-            Wednesday.instance.weddone();
-            print("Wednesday");
-        }
-
-        if (gamemodes==Modes.Elephant)
-        {
-            Animal.GetComponent<Animator>().SetTrigger("Run");
-            
-            DOVirtual.DelayedCall(0.3f, () =>
+            }
+            if (gamemodes == Modes.KingKong1)
             {
-                if (AudioManager.instance)
+                Animal.GetComponent<Animator>().SetTrigger("Run");
+                Animal.transform.DOMoveY(Animal.transform.position.y-0.5f,0.02f);
+                DOVirtual.DelayedCall(0.3f, () =>
                 {
-                    AudioManager.instance.Play("Elephant");
-                }
-                Animal.GetComponent<DOTweenAnimation>().DOPlay();
-            });
-            //seq.AppendInterval(0.3f);
-        }
-        if (gamemodes == Modes.Pig)
-        {
-            Animal.GetComponent<Animator>().SetTrigger("Run");
-            Animal.transform.DOMoveY(Animal.transform.position.y-1.5f,0.02f);
-            DOVirtual.DelayedCall(0.3f, () =>
-            {
-                if (AudioManager.instance)
-                {
-                    AudioManager.instance.Play("Pig");
-                }
-                Animal.GetComponent<DOTweenAnimation>().DOPlay();
-            });
-        }
-        if (gamemodes == Modes.KingKong1)
-        {
-            Animal.GetComponent<Animator>().SetTrigger("Run");
-            Animal.transform.DOMoveY(Animal.transform.position.y-0.5f,0.02f);
-            DOVirtual.DelayedCall(0.3f, () =>
-            {
-                Animal.GetComponent<DOTweenAnimation>().DOPlay();
-            });
+                    Animal.GetComponent<DOTweenAnimation>().DOPlay();
+                });
+            }
+
         }
 
-    }
-
-    public void birdscats()
-    {
-        if (birds.Count != null)
+        public void birdscats()
+        {
+            if (birds.Count != null)
             {
                 if (AudioManager.instance)
                 {
@@ -391,11 +358,6 @@ public class GameManager : MonoBehaviour
                     {
                         AudioManager.instance.Play("Birds");
                     }
-
-                    /*if (cats)
-                    {
-                        AudioManager.instance.Play("Cats");
-                    }*/
                 }
                 for (int i = 0; i < birds2.Count; i++)
                 {
@@ -433,38 +395,38 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            keycollect = false;
-    }
+        }
     
 
-    public void BirdsPoliceChase()
-    {
+        public void BirdsPoliceChase()
+        {
         
-        policeMan.GetComponent<Animator>().SetTrigger("Chase");
-    }
-
-    public void BirdsPolicemove()
-    {
-        if (AudioManager.instance)
-        {
-            AudioManager.instance.Play("Police");
+            policeMan.GetComponent<Animator>().SetTrigger("Chase");
         }
-        policeMan.GetComponent<DOTweenAnimation>().DOPlay();
-        DOVirtual.DelayedCall(3f, () =>
+
+        public void BirdsPolicemove()
         {
-            winning();
-        });
-    }
-    IEnumerator policechasewait()
-    {
-        sleepeffect.SetActive(false);
-        BirdsPoliceChase();
-        yield return new WaitForSeconds(1.8f);
-        BirdsPolicemove();
-    }
-    public void vibration()
-    {
-        Vibration.Vibrate(40);
-        print("vibrate");
+            if (AudioManager.instance)
+            {
+                AudioManager.instance.Play("Police");
+            }
+            policeMan.GetComponent<DOTweenAnimation>().DOPlay();
+            DOVirtual.DelayedCall(3f, () =>
+            {
+                winning();
+            });
+        }
+        IEnumerator policechasewait()
+        {
+            sleepeffect.SetActive(false);
+            BirdsPoliceChase();
+            yield return new WaitForSeconds(1.8f);
+            BirdsPolicemove();
+        }
+        public void Vibration()
+        {
+            Scripts.Vibration.Vibrate(40);
+            print("vibrate");
+        }
     }
 }

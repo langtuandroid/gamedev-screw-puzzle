@@ -1,26 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+namespace Game.Scripts
 {
-    public static Board instance;
-
-    private void Awake()
+    public class Board : MonoBehaviour
     {
-        instance = this;
-    }
+        public static Board instance;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Awake()
+        {
+            instance = this;
+        }
     }
 }

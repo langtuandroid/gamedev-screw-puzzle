@@ -1,0 +1,397 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &553435712875109061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 553435712875109063}
+  - component: {fileID: 553435712875109062}
+  m_Layer: 0
+  m_Name: Gamemanager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &553435712875109063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553435712875109061}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.21726424, y: 1.3419015, z: -1.073545}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 238156089776464144}
+  - {fileID: 1473523295023153037}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &553435712875109062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553435712875109061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a57b8a6c530784eb8197e79cf7f716, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamemodes: 0
+  gamestate: 0
+  selected: []
+  doneObjects: []
+  uiimage: {fileID: 0}
+  selectedBolt: []
+  dupPlug: {fileID: 0}
+  dupcolider: {fileID: 1470405025304336612}
+  totalcount: 0
+  donecount: 0
+  fillPartical: {fileID: 5097029606357696335, guid: 9863070491fd3f94f8c6dbef49b1a908,
+    type: 3}
+  animal: 0
+  Animal: {fileID: 0}
+  AnimalMovePos: {fileID: 0}
+  thief: {fileID: 0}
+  player: {fileID: 0}
+  playerspline: {fileID: 0}
+  Birds: 0
+  cats: 0
+  Dogs: 0
+  Rabbit: 0
+  Fox: 0
+  Zebra: 0
+  Dear: 0
+  Flamingo: 0
+  birds: []
+  birdsanim: []
+  birds2: []
+  birdsanim2: []
+  cagedoor: {fileID: 0}
+  keycollect: 0
+  test: 0
+  policeMan: {fileID: 0}
+  sleepeffect: {fileID: 0}
+  Fail: 0
+  once: 0
+--- !u!1 &6484708119174868041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 238156089776464144}
+  - component: {fileID: 543570906247384551}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &238156089776464144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6484708119174868041}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 553435712875109063}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &543570906247384551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6484708119174868041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55baf601046ec054c94f3742ed8d3515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  sounds:
+  - name: Bolt
+    clip: {fileID: 8300000, guid: 8b88f89438eb6fd44bb8a9adca294908, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Fill
+    clip: {fileID: 8300000, guid: 8b88f89438eb6fd44bb8a9adca294908, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Key
+    clip: {fileID: 8300000, guid: 24594288d9fc5ac45b3fcb57a5501c8a, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Lock
+    clip: {fileID: 8300000, guid: efc24a4792fc4464f9a3a246b69446d0, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Win
+    clip: {fileID: 8300000, guid: 4d811dd84c0332546b442a46ba5b5471, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Door
+    clip: {fileID: 8300000, guid: 2536dc887aedc8e408e0cd646a589edc, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Police
+    clip: {fileID: 8300000, guid: 09d5624df2fa10f40aca0fe0c988a0ba, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Elephant
+    clip: {fileID: 8300000, guid: 9433127532963734985b138c2780eb3a, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Pig
+    clip: {fileID: 8300000, guid: 9d4405627b9d1a64b82d1f3e718d9805, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Punch
+    clip: {fileID: 8300000, guid: 54e004f1098c0594fa00d58deea545b3, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Chain
+    clip: {fileID: 8300000, guid: da1a29796987eeb408c6b3866f976171, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 0.7
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Girl
+    clip: {fileID: 8300000, guid: eba8b467f1e7e8440aa9baa429e7805c, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Birds
+    clip: {fileID: 8300000, guid: 5c76084ac7b86b44f93044c60adc9ded, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 0.65
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Cats
+    clip: {fileID: 8300000, guid: fb0649fee0843e240962ea7b2423d7c3, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Dogs
+    clip: {fileID: 8300000, guid: f857fddbeedb3f54cb3108c549971e32, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Cheetah
+    clip: {fileID: 8300000, guid: 68b1e8dae4e8ecf498f4919d9619387e, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Flamingo
+    clip: {fileID: 8300000, guid: eca3f1ddea8c0bd438d3066de4bf9e0f, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Rabbit
+    clip: {fileID: 8300000, guid: abf1ef21b233d444898ce906cc29c6c2, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: Zebra
+    clip: {fileID: 8300000, guid: d5b30b6fa8d4d314889e3023491267f2, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: KingKong
+    clip: {fileID: 8300000, guid: b101940205d08b54f8e36d54f186e222, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+--- !u!1001 &5509218235573939878
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 553435712875109063}
+    m_Modifications:
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6346020387199341848, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_Name
+      value: Dup Plug
+      objectReference: {fileID: 0}
+    - target: {fileID: 6397099634420380139, guid: f207e4edb68b2114ebb332540663cd3f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f207e4edb68b2114ebb332540663cd3f, type: 3}
+--- !u!1 &1470405025304336612 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6346488178996409922, guid: f207e4edb68b2114ebb332540663cd3f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5509218235573939878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1473523295023153037 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6343229274868355371, guid: f207e4edb68b2114ebb332540663cd3f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5509218235573939878}
+  m_PrefabAsset: {fileID: 0}

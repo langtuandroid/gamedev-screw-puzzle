@@ -6,9 +6,7 @@ namespace Game.Scripts
 	public class AudioManager : MonoBehaviour
 	{
 		public static AudioManager instance;
-
-		public Sound[] sounds;
-		private int hitNo = 0;
+		[SerializeField] private Sound[] sounds;
 		void Awake()
 		{
 			if (instance != null)

@@ -20,11 +20,11 @@ namespace Game.Scripts
             Instance = this;
         }
 
-        void Start()
+        private void Start()
         {
             _gameManager = GameManager.instance;
             
-            if (_gameManager.gamemodes == GameManager.Modes.Wednesday)
+            if (_gameManager.GameMode == GameManager.Modes.Wednesday)
             {
                 transform.DOMove(wedcam.position, 2f).SetEase(Ease.Linear).OnComplete(() =>
                 {
@@ -43,7 +43,7 @@ namespace Game.Scripts
             }
         }
 
-        public void FirstChange()
+        private void FirstChange()
         {
             transform.DOMove(changePos.position, 2.5f).OnComplete(() =>
             {
@@ -63,7 +63,7 @@ namespace Game.Scripts
 
         public void Fail()
         {
-            if (_gameManager.gamemodes == GameManager.Modes.Pig || _gameManager.gamemodes == GameManager.Modes.Kingkong )
+            if (_gameManager.GameMode == GameManager.Modes.Pig || _gameManager.GameMode == GameManager.Modes.Kingkong )
             {
                 transform.DOMove(FailCam.position, 1.5f).OnComplete(() =>
                 {

@@ -1,22 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Game.Scripts
 {
     public class NewBolt : MonoBehaviour
     {
         public List<GameObject> connectedBodylist;
-        public GameManager gamemanger;
+        private GameManager _gameManger;
         void Start()
         {
-            gamemanger=GameManager.instance;
+            _gameManger = GameManager.instance;
         }
     
         private void OnTriggerStay(Collider other)
         {
             if (other.gameObject.CompareTag("CUBE"))
             {
-                if (gamemanger.gamestate == GameManager.State.Idle)
+                if (_gameManger.gamestate == GameManager.State.Idle)
                 {
                     if (!connectedBodylist.Contains(other.gameObject))
                     {

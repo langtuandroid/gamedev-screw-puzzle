@@ -15,6 +15,9 @@ namespace Game.Scripts
         [SerializeField] private Transform _thiefFinalPos;
         private bool _dead;
         private AudioManager _audioManager;
+        private Animator _handAnimator;
+        private Animator _thiefAnimator;
+        private DOTweenVisualManager _handVisualManager;
         private void Awake()
         {
             instance = this;
@@ -23,6 +26,9 @@ namespace Game.Scripts
         private void Start()
         {
             _audioManager = AudioManager.instance;
+            _handAnimator = _hand.GetComponent<Animator>();
+            _handVisualManager = _hand.transform.parent.GetComponent<DOTweenVisualManager>();
+            _thiefAnimator = _thief.GetComponent<Animator>();
         }
 
         public void WednesdayDone()
@@ -32,11 +38,11 @@ namespace Game.Scripts
                 .SetEase(Ease.Linear));
             seq.AppendCallback(() =>
             {
-                _hand.GetComponent<Animator>().SetTrigger("Run");
+                _handAnimator.SetTrigger("Run");
                 seq.Append(_hand.transform.parent.DOMove(new Vector3(0, -1.2f, 0f), 1f).SetEase(Ease.Linear).OnComplete(
                     () =>
                     {
-                        _hand.GetComponent<Animator>().SetTrigger("Punch");
+                        _handAnimator.SetTrigger("Punch");
                         DOVirtual.DelayedCall(1.5f, () =>
                         {
                             if (_audioManager)
@@ -57,14 +63,14 @@ namespace Game.Scripts
             seq.AppendInterval(2.4f);
             seq.AppendCallback(() =>
             {
-                _hand.transform.parent.GetComponent<DOTweenVisualManager>().enabled = true;
+                _handVisualManager.enabled = true;
                 _thief.GetComponent<Animator>().SetTrigger("Backpunch");
                 DOVirtual.DelayedCall(0.4f, () =>
                 {
-                    _hand.transform.parent.GetComponent<DOTweenVisualManager>().enabled = false;
+                    _handVisualManager.enabled = false;
                     DOVirtual.DelayedCall(2.5f, () =>
                     {
-                        _hand.transform.parent.GetComponent<DOTweenVisualManager>().enabled = true;
+                        _handVisualManager.enabled = true;
                         if (_audioManager)
                         {
                             _audioManager.Play("Punch");
@@ -72,10 +78,10 @@ namespace Game.Scripts
 
                         DOVirtual.DelayedCall(0.4f, () =>
                         {
-                            _hand.transform.parent.GetComponent<DOTweenVisualManager>().enabled = false;
+                            _handVisualManager.enabled = false;
                             DOVirtual.DelayedCall(1f, () =>
                             {
-                                _hand.transform.parent.GetComponent<DOTweenVisualManager>().enabled = true;
+                                _handVisualManager.enabled = true;
                                 if (_audioManager)
                                 {
                                     _audioManager.Play("Punch");
@@ -107,13 +113,13 @@ namespace Game.Scripts
                 DOVirtual.DelayedCall(0.4f, () =>
                 {
                     _thief.GetComponent<Animator>().SetTrigger("Cpunch");
-                    _hand.GetComponent<Animator>().SetTrigger("Finalpunch");
+                    _handAnimator.SetTrigger("Finalpunch");
                 });
                 DOVirtual.DelayedCall(2.4f, () =>
                 {
                     _hand.transform.parent.DOJump(_thief.transform.position, 4f, 1, 1f).SetEase(Ease.Linear);
-                    _hand.GetComponent<Animator>().SetTrigger("Run");
-                    _thief.GetComponent<Animator>().SetTrigger("TRY");
+                    _handAnimator.SetTrigger("Run");
+                    _thiefAnimator.SetTrigger("TRY");
 
                 });
                 DOVirtual.DelayedCall(2.2f, () =>
@@ -128,12 +134,12 @@ namespace Game.Scripts
                                         .OnComplete(
                                             () =>
                                             {
-                                                if (!UIManager.instance.win)
+                                                if (!UIManager.instance.Win)
                                                 {
                                                     GameManager.instance.winning();
                                                 }
                                             });
-                                    _thief.GetComponent<Animation>().enabled = false;
+                                    _thiefAnimator.enabled = false;
 
                                 });
                             });
@@ -149,7 +155,7 @@ namespace Game.Scripts
         {
             if (!_dead)
             {
-                _thief.GetComponent<Animator>().SetTrigger("Cpunch");
+                _thiefAnimator.SetTrigger("Cpunch");
                 if (_audioManager)
                 {
                     _audioManager.Play("Punch");
@@ -157,14 +163,14 @@ namespace Game.Scripts
             }
             else
             {
-                _thief.GetComponent<Animator>().SetTrigger("TRY");
+                _thiefAnimator.SetTrigger("TRY");
             }
         
         }
 
         public void Dead()
         {
-            _thief.GetComponent<Animator>().SetTrigger("TRY");
+            _thiefAnimator.SetTrigger("TRY");
         }
     }
 }

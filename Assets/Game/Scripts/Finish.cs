@@ -5,8 +5,7 @@ namespace Game.Scripts
     public class Finish : MonoBehaviour
     {
         public static Finish instance;
-    
-        public ParticleSystem blast;
+        [SerializeField] private ParticleSystem _blastParticle;
 
         private void Awake()
         {
@@ -27,6 +26,11 @@ namespace Game.Scripts
                 Destroy(other.gameObject.GetComponent<PolygonCollider2D>());
            
             }
+        }
+
+        public void PlayBlastParticle()
+        {
+            _blastParticle.Play();
         }
     }
 }

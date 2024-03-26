@@ -4,7 +4,6 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Game.Scripts
@@ -12,28 +11,30 @@ namespace Game.Scripts
     public class UIManager : MonoBehaviour
     {
         public static UIManager instance;
+        public static int currentLvl = 0;
+        private static int _lvlNum;
+        private static int _levelAttempts;
+        
         [SerializeField] private GameObject _winPanel;
         [SerializeField] private List<int> _helpLevel;
-        
         [Header("LevelNumber Bar")] 
         [SerializeField] private Image _lvlBgFill;
         [SerializeField] private GameObject[] _lvlNumImages;
         [SerializeField] private Sprite _filling;
         [SerializeField] private List<Sprite> _specialImages;
-        private static int _lvlNum;
-        private static int _levelAttempts;
-        public bool win { get; set; }
-
         [Header("Help Text")] 
         [SerializeField] private GameObject _pinObject;
         [SerializeField] private GameObject _fillObject;
         [Header("Key Help")] 
         [SerializeField] private GameObject _keyText;
-        public bool help { get; set; }
-        public bool pin { get; set; }
-        public bool fill { get; set; }
-        public static int currentLvl = 0;
+        
         private AudioManager _audioManager;
+        private bool _help;
+        public bool Pin { get; set; }
+        public bool Fill { get; set; }
+        public bool Win { get; set; }
+        
+        
 
         private void Awake()
         {
@@ -51,14 +52,14 @@ namespace Game.Scripts
             {
                 if (_pinObject != null && _fillObject != null)
                 {
-                    help = true;
+                    _help = true;
                 }
 
                 if (_pinObject != null && _fillObject != null)
                 {
-                    pin = true;
-                    fill = false;
-                    if (pin)
+                    Pin = true;
+                    Fill = false;
+                    if (Pin)
                     {
                         _pinObject.SetActive(true);
                     }
@@ -74,23 +75,17 @@ namespace Game.Scripts
 
         void Update()
         {
-
-            if (help)
+            if (!_help) return;
+            switch (Fill)
             {
-                if (fill && !pin)
-                {
+                case true when !Pin:
                     _pinObject.SetActive(false);
                     _fillObject.SetActive(true);
-                }
-            }
-
-            if (help)
-            {
-                if (!fill && !pin)
-                {
+                    break;
+                case false when !Pin:
                     _pinObject.SetActive(false);
                     _fillObject.SetActive(false);
-                }
+                    break;
             }
         }
 

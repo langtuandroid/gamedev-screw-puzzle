@@ -81,7 +81,7 @@ public class KingKong : MonoBehaviour
         DOVirtual.DelayedCall(2.5f, () =>
         {
             transform.GetComponent<DOTweenAnimation>().DOPlay();
-            if (!UIManager.instance.win)
+            if (!UIManager.instance.Win)
             {
                 DOVirtual.DelayedCall(3f, () =>
                 {

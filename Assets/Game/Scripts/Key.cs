@@ -5,18 +5,13 @@ namespace Game.Scripts
 {
     public class Key : MonoBehaviour
     {
-        public static Key instance;
-
         public GameObject locking;
 
-        public GameManager gamemanager;
-        private void Awake()
-        {
-            instance = this;
-        }
+        private GameManager _gameManager;
+     
         void Start()
         {
-            gamemanager = GameManager.instance;
+            _gameManager = GameManager.instance;
         }
         
         private void OnTriggerEnter(Collider other)
@@ -27,7 +22,7 @@ namespace Game.Scripts
                 gameObject.transform.GetComponentInChildren<DOTweenAnimation>().DOComplete();
                 if (AudioManager.instance)
                 {
-                    gamemanager.Vibration();
+                    _gameManager.Vibration();
                     AudioManager.instance.Play("Key");
                 }
                 gameObject.transform.DOMove(locking.gameObject.transform.position, 0.5f).OnComplete(() =>
@@ -36,7 +31,7 @@ namespace Game.Scripts
                     if (AudioManager.instance)
                     {
                         AudioManager.instance.Play("Lock");
-                        gamemanager.Vibration();
+                        _gameManager.Vibration();
                     }
                     locking.GetComponentInChildren<DOTweenAnimation>().DOPlay();
                     if (!locking.transform.GetComponentInChildren<ParticleSystem>().isPlaying)

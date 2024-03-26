@@ -22,7 +22,8 @@ namespace Game.Scripts
             KingKong1,
             Dogs,
         }
-        public Modes gamemodes;
+        [SerializeField] private Modes gamemodes;
+        public Modes GameMode => gamemodes;
     
         public enum State
         {
@@ -32,10 +33,6 @@ namespace Game.Scripts
             Done,
         }
         public State gamestate;
-    
-        [Header("Bolt Ui Move")] public List<GameObject> selected;
-
-        public GameObject uiimage;
 
         [Header("Bolt Shifting")] 
         public GameObject dupPlug;
@@ -87,7 +84,7 @@ namespace Game.Scripts
         {
             if (totalcount == donecount /*|| test*/)
             {
-                if (!UIManager.instance.win && gamemodes==Modes.Null)
+                if (!UIManager.instance.Win && gamemodes==Modes.Null)
                 {
                     winning();
                 }
@@ -147,9 +144,9 @@ namespace Game.Scripts
         }
         public void winning()
         {
-            Finish.instance.blast.Play();
+            Finish.instance.PlayBlastParticle();
             AudioManager.instance.Play("Win");
-            UIManager.instance.win = true;
+            UIManager.instance.Win = true;
             UIManager.instance.WinPanel();
         }
     
@@ -179,7 +176,7 @@ namespace Game.Scripts
 
                     });
             });
-            if (!UIManager.instance.win)
+            if (!UIManager.instance.Win)
             {
                 DOVirtual.DelayedCall(5f, () =>
                 {

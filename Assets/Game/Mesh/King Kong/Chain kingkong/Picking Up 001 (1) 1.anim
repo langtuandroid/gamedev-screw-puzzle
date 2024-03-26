@@ -65356,7 +65356,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1.9
-    functionName: girlposchange
+    functionName: GirlPosChange
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

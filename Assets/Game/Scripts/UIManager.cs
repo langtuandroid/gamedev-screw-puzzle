@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Game.Scripts
 {
     public class UIManager : MonoBehaviour
     {
-        public static UIManager instance;
-        public static int currentLvl = 0;
+        private static int _currentLvl;
         private static int _lvlNum;
         private static int _levelAttempts;
         
@@ -28,7 +29,7 @@ namespace Game.Scripts
         [Header("Key Help")] 
         [SerializeField] private GameObject _keyText;
         
-        private AudioManager _audioManager;
+        [Inject] private AudioManager _audioManager;
         private bool _help;
         public bool Pin { get; set; }
         public bool Fill { get; set; }
@@ -38,7 +39,6 @@ namespace Game.Scripts
 
         private void Awake()
         {
-            instance = this;
             _lvlNum = PlayerPrefs.GetInt("levelnumber", 1);
             LevelNumberHandler();
             
@@ -46,8 +46,6 @@ namespace Game.Scripts
 
         void Start()
         {
-            _audioManager = AudioManager.instance;
-            
             if (_helpLevel.Contains(_lvlNum))
             {
                 if (_pinObject != null && _fillObject != null)
@@ -146,10 +144,10 @@ namespace Game.Scripts
         private void BossLevelImg(bool call)
         {
             var lvlNo = PlayerPrefs.GetInt("SpecialImg", 0);
-            if (_lvlNum > 5 && call && currentLvl != _lvlNum)
+            if (_lvlNum > 5 && call && _currentLvl != _lvlNum)
             {
                 lvlNo = lvlNo >= _specialImages.Count - 1 ? _specialImages.Count - 1 : ++lvlNo;
-                currentLvl = _lvlNum;
+                _currentLvl = _lvlNum;
             }
 
             _lvlNumImages[^1].GetComponent<Image>().sprite = _specialImages[lvlNo];

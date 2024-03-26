@@ -3,29 +3,26 @@ using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Zenject;
 
 namespace Game.Scripts
 {
     public class Wednesday : MonoBehaviour
     {
-        public static Wednesday instance;
         [SerializeField] private GameObject _hand;
         [SerializeField] private GameObject _wednesdayGirl;
         [SerializeField] private GameObject _thief;
         [SerializeField] private Transform _thiefFinalPos;
+        [Inject] private GameManager _gameManager;
+        [Inject] private AudioManager _audioManager;
+        [Inject] private UIManager _uiManager;
         private bool _dead;
-        private AudioManager _audioManager;
         private Animator _handAnimator;
         private Animator _thiefAnimator;
         private DOTweenVisualManager _handVisualManager;
-        private void Awake()
-        {
-            instance = this;
-        }
 
         private void Start()
         {
-            _audioManager = AudioManager.instance;
             _handAnimator = _hand.GetComponent<Animator>();
             _handVisualManager = _hand.transform.parent.GetComponent<DOTweenVisualManager>();
             _thiefAnimator = _thief.GetComponent<Animator>();
@@ -96,7 +93,7 @@ namespace Game.Scripts
             seq.AppendCallback(() =>
             {
                 _wednesdayGirl.GetComponent<SplineFollower>().enabled = true;
-                _wednesdayGirl.GetComponent<SplineFollower>().spline = GameManager.instance.playerspline;
+                _wednesdayGirl.GetComponent<SplineFollower>().spline = _gameManager.PlayerSpline;
                 _wednesdayGirl.GetComponent<Animator>().SetTrigger("Run");
                 _hand.transform.parent.DORotate(new Vector3(82, 120, 240), 0.5f);
                 _hand.transform.parent
@@ -134,9 +131,9 @@ namespace Game.Scripts
                                         .OnComplete(
                                             () =>
                                             {
-                                                if (!UIManager.instance.Win)
+                                                if (!_uiManager.Win)
                                                 {
-                                                    GameManager.instance.Win();
+                                                    _gameManager.Win();
                                                 }
                                             });
                                     _thiefAnimator.enabled = false;

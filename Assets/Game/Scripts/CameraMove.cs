@@ -1,33 +1,26 @@
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Scripts
 {
     public class CameraMove : MonoBehaviour
     {
-        public static CameraMove Instance;
-    
-        public Transform originalpos;
-        public Transform changePos;
-        public Transform FailCam;
-        
-        public Transform wedcam;
-
-        private GameManager _gameManager;
-        private TouchDrop _touchDrop;
+        [SerializeField] private Transform originalpos;
+        [SerializeField] private Transform changePos;
+        [SerializeField] private Transform FailCam;
+        [SerializeField] private Transform wedcam;
+        [Inject] private GameManager _gameManager;
+        [Inject] private TouchDrop _touchDrop;
         private Transform _transform;
 
         private void Awake()
         {
             _transform = transform;
-            Instance = this;
         }
 
         private void Start()
         {
-            _gameManager = GameManager.instance;
-            _touchDrop = TouchDrop.Instance;
-            
             if (_gameManager.GameMode == GameManager.Modes.Wednesday)
             {
                 _transform.DOMove(wedcam.position, 2f).SetEase(Ease.Linear).OnComplete(() =>
@@ -71,7 +64,7 @@ namespace Game.Scripts
             {
                 _transform.DOMove(FailCam.position, 1.5f).OnComplete(() =>
                 {
-                    _gameManager.Animal.GetComponent<Animator>().SetTrigger("Fail");
+                    _gameManager.AnimalFail();
                 });
                 _transform.rotation = FailCam.rotation;
             

@@ -1,29 +1,20 @@
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Scripts
 {
     public class TouchDrop : MonoBehaviour
     {
-        public static TouchDrop Instance;
         private bool _start;
         private RaycastHit _hit;
-        private GameManager _gameManager;
-        private AudioManager _audioManager;
-        private UIManager _uiManager;
-        private float _boltRemoveHeight;
-        private void Awake()
-        {
-            Instance = this;
-            _boltRemoveHeight = 2f;
-        }
+        [Inject] private GameManager _gameManager;
+        [Inject] private AudioManager _audioManager;
+        [Inject] private UIManager _uiManager;
+        private readonly float _boltRemoveHeight = 2f;
 
         void Start()
         {
-            _gameManager = GameManager.instance;
-            _audioManager = AudioManager.instance;
-            _uiManager = UIManager.instance;
-            
             if (_gameManager.GameMode == GameManager.Modes.Null)
             {
                 _start = true;
@@ -91,8 +82,8 @@ namespace Game.Scripts
                 {
                 
                     _audioManager.Play("Fill");
-                    Instantiate(_gameManager.fillPartical, new Vector3(position1.x,position1.y,position1.z - 1.5f),
-                        new Quaternion(0f,0f,0f,0f));
+                    _gameManager.SpawnParticle(new Vector3(position1.x,position1.y,position1.z - 1.5f));
+                    
                 
                     parent.transform.DOLocalMoveZ(
                             parent.transform.localPosition.z + _boltRemoveHeight, 0.3f)

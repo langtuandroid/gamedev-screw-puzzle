@@ -1,23 +1,13 @@
 using UnityEngine;
+using Zenject;
 
 namespace Game.Scripts
 {
     public class Finish : MonoBehaviour
     {
-        public static Finish instance;
         [SerializeField] private ParticleSystem _blastParticle;
-        private GameManager _gameManager;
-
-        private void Awake()
-        {
-            instance = this;
-        }
-
-        private void Start()
-        {
-            _gameManager = GameManager.instance;
-        }
-
+        [Inject] private GameManager _gameManager;
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("CUBE"))

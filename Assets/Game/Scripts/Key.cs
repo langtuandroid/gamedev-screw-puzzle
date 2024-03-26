@@ -1,21 +1,13 @@
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Scripts
 {
     public class Key : MonoBehaviour
     {
-        public GameObject locking;
-
-        private GameManager _gameManager;
-        private AudioManager _audioManager;
-     
-        void Start()
-        {
-            _gameManager = GameManager.instance;
-            _audioManager = AudioManager.instance;
-        }
-        
+        [SerializeField] private GameObject locking;
+        [Inject] private AudioManager _audioManager;
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("CUBE"))

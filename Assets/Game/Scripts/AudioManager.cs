@@ -5,20 +5,10 @@ namespace Game.Scripts
 {
 	public class AudioManager : MonoBehaviour
 	{
-		public static AudioManager instance;
+
 		[SerializeField] private Sound[] sounds;
 		void Awake()
 		{
-			if (instance != null)
-			{
-				Destroy(gameObject);
-			}
-			else
-			{
-				instance = this;
-				DontDestroyOnLoad(gameObject);
-			}
-
 			foreach (Sound s in sounds)
 			{
 				s.source = gameObject.AddComponent<AudioSource>();

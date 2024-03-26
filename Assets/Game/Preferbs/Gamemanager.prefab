@@ -49,7 +49,7 @@ MonoBehaviour:
   gamemodes: 0
   _dupColider: {fileID: 1491743652229504845}
   totalcount: 0
-  fillPartical: {fileID: 5097029606357696335, guid: 9863070491fd3f94f8c6dbef49b1a908,
+  _fillParticle: {fileID: 5097029606357696335, guid: 9863070491fd3f94f8c6dbef49b1a908,
     type: 3}
   Animal: {fileID: 0}
   thief: {fileID: 0}

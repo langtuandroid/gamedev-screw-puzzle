@@ -4,6 +4,7 @@ using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Zenject;
 
 namespace Game.Scripts
 {
@@ -29,57 +30,48 @@ namespace Game.Scripts
             Done,
         }
         
-        public static GameManager instance;
         [SerializeField] private Modes gamemodes;
         
         [Header("Bolt Shifting")] 
         [SerializeField] private CircleCollider2D _dupColider;
         [SerializeField] private int totalcount;
         private int _doneCount;
-        public GameObject fillPartical;
+        [SerializeField] private GameObject _fillParticle;
 
         [Header("ANIMAL")] 
-        public GameObject Animal;
-        public GameObject thief;
-        public GameObject player;
-        public SplineComputer playerspline;
+        [SerializeField] private GameObject Animal;
+        [SerializeField] private GameObject thief;
+        [SerializeField] private GameObject player;
+        [SerializeField] private SplineComputer playerspline;
 
         [Header("Birds or cats")]
-        public bool Birds;
-        public bool cats;
-        public bool Dogs,Rabbit,Fox,Zebra,Dear,Flamingo;
-        public List<GameObject> birds;
-        public List<DOTweenAnimation> birdsanim;
-        public List<GameObject> birds2;
-        public List<DOTweenAnimation> birdsanim2;
+        [SerializeField] private bool Birds;
+        [SerializeField] private bool cats;
+        [SerializeField] private bool Dogs,Rabbit,Fox,Zebra,Dear,Flamingo;
+        [SerializeField] private List<GameObject> birds;
+        [SerializeField] private List<DOTweenAnimation> birdsanim;
+        [SerializeField] private List<GameObject> birds2;
+        [SerializeField] private List<DOTweenAnimation> birdsanim2;
         
-        public GameObject cagedoor;
-        public GameObject policeMan;
-        public GameObject sleepeffect;
+        [SerializeField] private GameObject cagedoor;
+        [SerializeField] private GameObject policeMan;
+        [SerializeField] private GameObject sleepeffect;
         private bool _once;
         private bool _fail;
-        private Finish _finish;
-        private AudioManager _audioManager;
-        private UIManager _uiManager;
-        private CameraMove _cameraMove;
-        private Board _board;
+        [Inject] private Finish _finish;
+        [Inject] private AudioManager _audioManager;
+        [Inject] private UIManager _uiManager;
+        [Inject] private CameraMove _cameraMove;
+        [Inject] private Board _board;
+        [Inject] private Wednesday _wednesday;
+        [Inject] private KingKong _kingKong;
+        public SplineComputer PlayerSpline => playerspline;
         public Modes GameMode => gamemodes;
         public State GameState { get; set; }
         public GameObject DupPlug { get; set; }
-     
-        private void Awake()
-        {
-            instance = this;
-        }
-
+        
         void Start()
         {
-            _audioManager = AudioManager.instance;
-            _uiManager = UIManager.instance;
-            _cameraMove = CameraMove.Instance;
-            _finish = Finish.instance;
-            _board = Board.instance;
-            
             GameState = State.Done;
             if (_board)
             {
@@ -135,10 +127,7 @@ namespace Game.Scripts
                         _cameraMove.SecondChange();
                         DOVirtual.DelayedCall(4.2f, () =>
                         {
-                            if (AudioManager.instance)
-                            {
-                                _audioManager.Play("KingKong");
-                            }
+                            _audioManager.Play("KingKong");
                             StartCoroutine(PoliceChaseWait());
                         });
                         break;
@@ -152,10 +141,10 @@ namespace Game.Scripts
         }
         public void Win()
         {
-            Finish.instance.PlayBlastParticle();
+            _finish.PlayBlastParticle();
             _audioManager.Play("Win");
-            UIManager.instance.Win = true;
-            UIManager.instance.WinPanel();
+            _uiManager.Win = true;
+            _uiManager.WinPanel();
         }
 
         private void TigerAttack()
@@ -184,7 +173,7 @@ namespace Game.Scripts
 
                     });
             });
-            if (!UIManager.instance.Win)
+            if (!_uiManager.Win)
             {
                 DOVirtual.DelayedCall(5f, Win);
             }
@@ -195,15 +184,12 @@ namespace Game.Scripts
             if (gamemodes == Modes.Kingkong)
             {
                 cagedoor.GetComponent<Rigidbody>().isKinematic = false;
-                KingKong.instance.kingkongfun();
+                _kingKong.KingKongFun();
             }
 
             else
             {
-                if (AudioManager.instance)
-                {
-                    _audioManager.Play("Door");
-                }
+                _audioManager.Play("Door");
                 cagedoor.transform.DOLocalRotate(new Vector3(0, -120f, 0), 1f,RotateMode.LocalAxisAdd).SetEase(Ease.Linear).OnComplete(
                     () =>
                     {
@@ -218,7 +204,6 @@ namespace Game.Scripts
         }
         public void AnimalAnimation()
         {
-        
             if (gamemodes == Modes.Tiger)
             {
                 TigerAttack();
@@ -230,7 +215,7 @@ namespace Game.Scripts
         
             if (gamemodes == Modes.Wednesday)
             {
-                Wednesday.instance.WednesdayDone();
+                _wednesday.WednesdayDone();
                 print("Wednesday");
             }
 
@@ -240,10 +225,7 @@ namespace Game.Scripts
             
                 DOVirtual.DelayedCall(0.3f, () =>
                 {
-                    if (AudioManager.instance)
-                    {
-                        _audioManager.Play("Elephant");
-                    }
+                    _audioManager.Play("Elephant");
                     Animal.GetComponent<DOTweenAnimation>().DOPlay();
                 });
             }
@@ -253,10 +235,7 @@ namespace Game.Scripts
                 Animal.transform.DOMoveY(Animal.transform.position.y-1.5f,0.02f);
                 DOVirtual.DelayedCall(0.3f, () =>
                 {
-                    if (_audioManager)
-                    {
-                        _audioManager.Play("Pig");
-                    }
+                    _audioManager.Play("Pig");
                     Animal.GetComponent<DOTweenAnimation>().DOPlay();
                 });
             }
@@ -274,40 +253,36 @@ namespace Game.Scripts
 
         private void BirdsCats()
         {
-            if (_audioManager)
+            if (Birds)
             {
-                if (Birds)
-                {
-                    _audioManager.Play("Birds");
-                }
-
-                if (cats)
-                {
-                    _audioManager.Play("Cats");
-                }
-
-                if (Dogs)
-                {
-                    _audioManager.Play("Dogs");
-                }
-
-                if (Flamingo)
-                {
-                    _audioManager.Play("Flamingo");
-                }
-
-                if (Rabbit)
-                {
-                    _audioManager.Play("Rabbit");
-                }
-
-                if (Zebra)
-                {
-                    _audioManager.Play("Zebra");
-                }
-
-                   
+                _audioManager.Play("Birds");
             }
+
+            if (cats)
+            {
+                _audioManager.Play("Cats");
+            }
+
+            if (Dogs)
+            {
+                _audioManager.Play("Dogs");
+            }
+
+            if (Flamingo)
+            {
+                _audioManager.Play("Flamingo");
+            }
+
+            if (Rabbit)
+            {
+                _audioManager.Play("Rabbit");
+            }
+
+            if (Zebra)
+            {
+                _audioManager.Play("Zebra");
+            }
+            
             foreach (var bird in birds)
             {
                 bird.GetComponent<Animator>().SetTrigger("Fly");
@@ -350,12 +325,9 @@ namespace Game.Scripts
                 }
             }
 
-            if (_audioManager)
+            if (Birds)
             {
-                if (Birds)
-                {
-                    _audioManager.Play("Birds");
-                }
+                _audioManager.Play("Birds");
             }
             foreach (var bird in birds2)
             {
@@ -402,10 +374,7 @@ namespace Game.Scripts
 
         private void BirdsPoliceMove()
         {
-            if (_audioManager)
-            {
-                _audioManager.Play("Police");
-            }
+            _audioManager.Play("Police");
             policeMan.GetComponent<DOTweenAnimation>().DOPlay();
             DOVirtual.DelayedCall(3f, () =>
             {
@@ -435,6 +404,16 @@ namespace Game.Scripts
         public void DisableDupCollider()
         {
             _dupColider.enabled = false;
+        }
+
+        public void SpawnParticle(Vector3 pos)
+        {
+            Instantiate(_fillParticle, pos, Quaternion.identity);
+        }
+
+        public void AnimalFail()
+        {
+            Animal.GetComponent<Animator>().SetTrigger("Fail");
         }
         public static void Vibrate()
         {

@@ -1,16 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
+
 namespace Game.Scripts
 {
     public class NewBolt : MonoBehaviour
     {
-        public List<GameObject> connectedBodylist;
-        private GameManager _gameManger;
-        void Start()
-        {
-            _gameManger = GameManager.instance;
-        }
-    
+        [SerializeField] private List<GameObject> connectedBodylist;
+        [Inject] private GameManager _gameManger;
+        
         private void OnTriggerStay(Collider other)
         {
             if (other.gameObject.CompareTag("CUBE"))

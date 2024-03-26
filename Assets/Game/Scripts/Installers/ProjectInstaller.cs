@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Game.Scripts.Installers
 {
-    public class ProjectContext : MonoInstaller
+    public class ProjectInstaller : MonoInstaller
     {
         [SerializeField] private AudioManager _audioManager;
         public override void InstallBindings()

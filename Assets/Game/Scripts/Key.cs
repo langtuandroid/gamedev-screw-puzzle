@@ -8,10 +8,12 @@ namespace Game.Scripts
         public GameObject locking;
 
         private GameManager _gameManager;
+        private AudioManager _audioManager;
      
         void Start()
         {
             _gameManager = GameManager.instance;
+            _audioManager = AudioManager.instance;
         }
         
         private void OnTriggerEnter(Collider other)
@@ -20,18 +22,18 @@ namespace Game.Scripts
             {
                 gameObject.GetComponent<Collider>().enabled = false;
                 gameObject.transform.GetComponentInChildren<DOTweenAnimation>().DOComplete();
-                if (AudioManager.instance)
+                if (_audioManager)
                 {
-                    _gameManager.Vibration();
-                    AudioManager.instance.Play("Key");
+                    _gameManager.Vibrate();
+                    _audioManager.Play("Key");
                 }
                 gameObject.transform.DOMove(locking.gameObject.transform.position, 0.5f).OnComplete(() =>
                 {
                     transform.GetComponentInChildren<MeshRenderer>().enabled = false;
-                    if (AudioManager.instance)
+                    if (_audioManager)
                     {
-                        AudioManager.instance.Play("Lock");
-                        _gameManager.Vibration();
+                        _audioManager.Play("Lock");
+                        _gameManager.Vibrate();
                     }
                     locking.GetComponentInChildren<DOTweenAnimation>().DOPlay();
                     if (!locking.transform.GetComponentInChildren<ParticleSystem>().isPlaying)
@@ -41,7 +43,6 @@ namespace Game.Scripts
             
                 });
             }
-       
         }
 
         public void Locked()

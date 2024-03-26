@@ -14,19 +14,23 @@ namespace Game.Scripts
         public Transform wedcam;
 
         private GameManager _gameManager;
+        private TouchDrop _touchDrop;
+        private Transform _transform;
 
         private void Awake()
         {
+            _transform = transform;
             Instance = this;
         }
 
         private void Start()
         {
             _gameManager = GameManager.instance;
+            _touchDrop = TouchDrop.Instance;
             
             if (_gameManager.GameMode == GameManager.Modes.Wednesday)
             {
-                transform.DOMove(wedcam.position, 2f).SetEase(Ease.Linear).OnComplete(() =>
+                _transform.DOMove(wedcam.position, 2f).SetEase(Ease.Linear).OnComplete(() =>
                 {
                     DOVirtual.DelayedCall(1f, () =>
                     {
@@ -45,31 +49,31 @@ namespace Game.Scripts
 
         private void FirstChange()
         {
-            transform.DOMove(changePos.position, 2.5f).OnComplete(() =>
+            _transform.DOMove(changePos.position, 2.5f).OnComplete(() =>
             {
-                TouchDrop.instance.start = true;
+                _touchDrop.SetStart();
             });
-            transform.rotation = changePos.transform.rotation;
+            _transform.rotation = changePos.transform.rotation;
         }
         
         public void SecondChange()
         {
-            transform.DOMove(originalpos.position, 2.5f).OnComplete(() =>
+            _transform.DOMove(originalpos.position, 2.5f).OnComplete(() =>
             { 
                 _gameManager.DoorOpen();
             });
-            transform.rotation = originalpos.rotation;
+            _transform.rotation = originalpos.rotation;
         }
 
         public void Fail()
         {
             if (_gameManager.GameMode == GameManager.Modes.Pig || _gameManager.GameMode == GameManager.Modes.Kingkong )
             {
-                transform.DOMove(FailCam.position, 1.5f).OnComplete(() =>
+                _transform.DOMove(FailCam.position, 1.5f).OnComplete(() =>
                 {
                     _gameManager.Animal.GetComponent<Animator>().SetTrigger("Fail");
                 });
-                transform.rotation = FailCam.rotation;
+                _transform.rotation = FailCam.rotation;
             
             }
         }

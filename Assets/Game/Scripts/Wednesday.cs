@@ -136,7 +136,7 @@ namespace Game.Scripts
                                             {
                                                 if (!UIManager.instance.Win)
                                                 {
-                                                    GameManager.instance.winning();
+                                                    GameManager.instance.Win();
                                                 }
                                             });
                                     _thiefAnimator.enabled = false;

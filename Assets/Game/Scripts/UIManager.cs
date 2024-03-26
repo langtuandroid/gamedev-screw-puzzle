@@ -219,7 +219,7 @@ namespace Game.Scripts
             if (_audioManager)
             {
                 _audioManager.Play("Fill");
-                GameManager.instance.Vibration();
+                GameManager.instance.Vibrate();
             }
 
             Debug.Log($"Level Attempts::{_levelAttempts}");
@@ -243,7 +243,7 @@ namespace Game.Scripts
             if (_audioManager)
             {
                 _audioManager.Play("Fill");
-                GameManager.instance.Vibration();
+                GameManager.instance.Vibrate();
             }
             
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

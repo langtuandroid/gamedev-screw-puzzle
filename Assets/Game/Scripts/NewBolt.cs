@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-
 namespace Game.Scripts
 {
     public class NewBolt : MonoBehaviour
@@ -17,7 +15,7 @@ namespace Game.Scripts
         {
             if (other.gameObject.CompareTag("CUBE"))
             {
-                if (_gameManger.gamestate == GameManager.State.Idle)
+                if (_gameManger.GameState == GameManager.State.Idle)
                 {
                     if (!connectedBodylist.Contains(other.gameObject))
                     {

@@ -286,11 +286,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 553435712875109062, guid: cb43669d8a446f744b90c21a75e6eb07,
         type: 3}
-      propertyPath: dupcolider
-      value: 
-      objectReference: {fileID: 734235305}
-    - target: {fileID: 553435712875109062, guid: cb43669d8a446f744b90c21a75e6eb07,
-        type: 3}
       propertyPath: totalcount
       value: 1
       objectReference: {fileID: 0}
@@ -764,12 +759,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00d90c2676876274faade1192be002fe, type: 3}
---- !u!1 &734235305 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1470405025304336612, guid: cb43669d8a446f744b90c21a75e6eb07,
-    type: 3}
-  m_PrefabInstance: {fileID: 380171906}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &871656025
 PrefabInstance:
   m_ObjectHideFlags: 0

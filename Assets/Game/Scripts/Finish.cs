@@ -6,20 +6,27 @@ namespace Game.Scripts
     {
         public static Finish instance;
         [SerializeField] private ParticleSystem _blastParticle;
+        private GameManager _gameManager;
 
         private void Awake()
         {
             instance = this;
         }
-    
+
+        private void Start()
+        {
+            _gameManager = GameManager.instance;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.CompareTag("CUBE"))
             {
-                GameManager.instance.donecount++;
-                if (other.gameObject.GetComponentInChildren<Rigidbody>().isKinematic == true)
+                _gameManager.IncreaseLevelsDone();
+                Rigidbody rigidbody = other.gameObject.GetComponentInChildren<Rigidbody>();
+                if (rigidbody.isKinematic)
                 {
-                    other.gameObject.GetComponentInChildren<Rigidbody>().isKinematic = false;
+                    rigidbody.isKinematic = false;
                 }
             
                 Destroy(other.gameObject.GetComponent<Rigidbody2D>());

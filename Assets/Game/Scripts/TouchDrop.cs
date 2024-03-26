@@ -5,34 +5,34 @@ namespace Game.Scripts
 {
     public class TouchDrop : MonoBehaviour
     {
-        public static TouchDrop instance;
-
-        [SerializeField] public bool start;
-    
+        public static TouchDrop Instance;
+        private bool _start;
         private RaycastHit _hit;
-        [Header("Scripts")]
-        public GameManager gameManager;
-
-        public float boltremoveheight;
-    
-        private Vector3 offset;
-        
+        private GameManager _gameManager;
         private AudioManager _audioManager;
+        private UIManager _uiManager;
+        private float _boltRemoveHeight;
         private void Awake()
         {
-            instance = this;
-            boltremoveheight = 2f;
+            Instance = this;
+            _boltRemoveHeight = 2f;
         }
 
         void Start()
         {
-            gameManager=GameManager.instance;
+            _gameManager = GameManager.instance;
             _audioManager = AudioManager.instance;
+            _uiManager = UIManager.instance;
             
-            if (gameManager.GameMode == GameManager.Modes.Null)
+            if (_gameManager.GameMode == GameManager.Modes.Null)
             {
-                start = true;
+                _start = true;
             }
+        }
+
+        public void SetStart()
+        {
+            _start = true;
         }
 
     
@@ -40,14 +40,14 @@ namespace Game.Scripts
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (!UIManager.instance.Win && start)
+                if (!_uiManager.Win && _start)
                 {
                     var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     if (Physics.Raycast(ray, out _hit))
                     {
                         if (_hit.collider.gameObject.CompareTag("BOLT"))
                         {
-                            if (gameManager.gamestate == GameManager.State.Done)
+                            if (_gameManager.GameState == GameManager.State.Done)
                             {
                                 var selectObject = _hit.collider.gameObject;
                                 BoltShifting(selectObject);
@@ -57,7 +57,7 @@ namespace Game.Scripts
 
                         if (_hit.collider.gameObject.CompareTag("Fill"))
                         {
-                            if (gameManager.gamestate == GameManager.State.Done)
+                            if (_gameManager.GameState == GameManager.State.Done)
                             {
                                 var fillingplace = _hit.collider.gameObject;
                                 Filling(fillingplace);
@@ -71,20 +71,20 @@ namespace Game.Scripts
         }
 
 
-        public void Filling(GameObject fillingreferance)
+        private void Filling(GameObject fillingReference)
         {
-            if (gameManager.dupPlug!=null)
+            if (_gameManager.DupPlug != null)
             {
-                if (UIManager.instance.Fill)
+                if (_uiManager.Fill)
                 {
-                    UIManager.instance.Fill = false;
+                    _uiManager.Fill = false;
                 } 
-                gameManager.Vibration();
-                var parent = gameManager.dupPlug.transform.parent;
-                var position1 = fillingreferance.transform.position;
+                _gameManager.Vibrate();
+                var parent = _gameManager.DupPlug.transform.parent;
+                var position1 = fillingReference.transform.position;
             
-                gameManager.dupcolider.transform.localPosition = parent.transform.localPosition;
-                gameManager.dupcolider.GetComponent<CircleCollider2D>().enabled = true;
+                _gameManager.dupcolider.transform.localPosition = parent.transform.localPosition;
+                _gameManager.dupcolider.GetComponent<CircleCollider2D>().enabled = true;
                 parent.GetComponent<CircleCollider2D>().enabled = false;
                 
                 parent.DOMoveX(position1.x, 0.25f);
@@ -92,76 +92,76 @@ namespace Game.Scripts
                 {
                 
                     _audioManager.Play("Fill");
-                    Instantiate(gameManager.fillPartical, new Vector3(position1.x,position1.y,position1.z - 1.5f),
+                    Instantiate(_gameManager.fillPartical, new Vector3(position1.x,position1.y,position1.z - 1.5f),
                         new Quaternion(0f,0f,0f,0f));
                 
                     parent.transform.DOLocalMoveZ(
-                            parent.transform.localPosition.z + boltremoveheight, 0.3f)
+                            parent.transform.localPosition.z + _boltRemoveHeight, 0.3f)
                         .SetEase(Ease.Linear).OnComplete(() =>
                         {
-                            gameManager.dupcolider.GetComponent<CircleCollider2D>().enabled = false;
+                            _gameManager.dupcolider.GetComponent<CircleCollider2D>().enabled = false;
                             parent.GetComponent<CircleCollider2D>().enabled = true;
-                            gameManager.gamestate = GameManager.State.Done;
+                            _gameManager.GameState = GameManager.State.Done;
                         });
                 });
-                gameManager.dupPlug = null;
+                _gameManager.DupPlug = null;
             }
         }
 
         private void BoltShifting(GameObject boltReference)
         {
-            if (gameManager.dupPlug != null)
+            if (_gameManager.DupPlug != null)
             {
-                gameManager.Vibration();
+                _gameManager.Vibrate();
                 _audioManager.Play("Bolt");
-                if (UIManager.instance.Pin)
+                if (_uiManager.Pin)
                 {
-                    UIManager.instance.Pin = false;
-                    UIManager.instance.Fill = true;
+                    _uiManager.Pin = false;
+                    _uiManager.Fill = true;
                 }
-                if (gameManager.dupPlug == boltReference)
+                if (_gameManager.DupPlug == boltReference)
                 {
             
-                    gameManager.gamestate = GameManager.State.Select;
-                    gameManager.dupPlug = null;
+                    _gameManager.GameState = GameManager.State.Select;
+                    _gameManager.DupPlug = null;
                     var parent = boltReference.transform.parent;
-                    parent.DOLocalMoveZ(parent.localPosition.z + boltremoveheight, 0.3f).SetEase(Ease.Linear).OnComplete(
-                        () => gameManager.gamestate = GameManager.State.Done);
+                    parent.DOLocalMoveZ(parent.localPosition.z + _boltRemoveHeight, 0.3f).SetEase(Ease.Linear).OnComplete(
+                        () => _gameManager.GameState = GameManager.State.Done);
                     
                 }
-                else if (gameManager.dupPlug != boltReference)
+                else if (_gameManager.DupPlug != boltReference)
                 {
-                    gameManager.gamestate = GameManager.State.Select;
-                    var parent = gameManager.dupPlug.transform.parent;
-                    parent.DOLocalMoveZ(parent.localPosition.z + boltremoveheight, 0.3f).SetEase(Ease.Linear);
-                    gameManager.dupPlug = null;
-                    gameManager.dupPlug=boltReference;
+                    _gameManager.GameState = GameManager.State.Select;
+                    var parent = _gameManager.DupPlug.transform.parent;
+                    parent.DOLocalMoveZ(parent.localPosition.z + _boltRemoveHeight, 0.3f).SetEase(Ease.Linear);
+                    _gameManager.DupPlug = null;
+                    _gameManager.DupPlug=boltReference;
                     var parent1 = boltReference.transform.parent;
 
-                    parent1.DOLocalMoveZ(parent1.localPosition.z - boltremoveheight, 0.3f).SetEase(Ease.Linear).OnComplete(
+                    parent1.DOLocalMoveZ(parent1.localPosition.z - _boltRemoveHeight, 0.3f).SetEase(Ease.Linear).OnComplete(
                         () =>
                         {
-                            gameManager.gamestate = GameManager.State.Done;
+                            _gameManager.GameState = GameManager.State.Done;
                         });
                 }
             }
         
-            else if (gameManager.dupPlug == null)
+            else if (_gameManager.DupPlug == null)
             {
-                gameManager.gamestate = GameManager.State.Select;
-                if (UIManager.instance.Pin)
+                _gameManager.GameState = GameManager.State.Select;
+                if (_uiManager.Pin)
                 {
-                    UIManager.instance.Pin = false;
-                    UIManager.instance.Fill = true;
+                    _uiManager.Pin = false;
+                    _uiManager.Fill = true;
                 }
-                gameManager.Vibration();
+                _gameManager.Vibrate();
                 _audioManager.Play("Bolt");
                 var parent = boltReference.transform.parent;
-                parent.DOLocalMoveZ(parent.localPosition.z - boltremoveheight, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
+                parent.DOLocalMoveZ(parent.localPosition.z - _boltRemoveHeight, 0.3f).SetEase(Ease.Linear).OnComplete(() =>
                 {
-                    gameManager.gamestate = GameManager.State.Done;
+                    _gameManager.GameState = GameManager.State.Done;
                 });
-                gameManager.dupPlug = boltReference;
+                _gameManager.DupPlug = boltReference;
             }
         }
     }

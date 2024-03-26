@@ -1394,6 +1394,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 553435712875109062, guid: cb43669d8a446f744b90c21a75e6eb07,
         type: 3}
+      propertyPath: _rabbit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 553435712875109062, guid: cb43669d8a446f744b90c21a75e6eb07,
+        type: 3}
       propertyPath: cagedoor
       value: 
       objectReference: {fileID: 532435072}
@@ -1410,6 +1415,11 @@ PrefabInstance:
     - target: {fileID: 553435712875109062, guid: cb43669d8a446f744b90c21a75e6eb07,
         type: 3}
       propertyPath: totalcount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 553435712875109062, guid: cb43669d8a446f744b90c21a75e6eb07,
+        type: 3}
+      propertyPath: _totalCount
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 553435712875109062, guid: cb43669d8a446f744b90c21a75e6eb07,

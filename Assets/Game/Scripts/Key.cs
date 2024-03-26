@@ -1,12 +1,13 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Game.Scripts
 {
     public class Key : MonoBehaviour
     {
-        [SerializeField] private GameObject locking;
+        [FormerlySerializedAs("locking")] [SerializeField] private GameObject _locking;
         [Inject] private AudioManager _audioManager;
         private void OnTriggerEnter(Collider other)
         {
@@ -19,7 +20,7 @@ namespace Game.Scripts
                     GameManager.Vibrate();
                     _audioManager.Play("Key");
                 }
-                gameObject.transform.DOMove(locking.gameObject.transform.position, 0.5f).OnComplete(() =>
+                gameObject.transform.DOMove(_locking.gameObject.transform.position, 0.5f).OnComplete(() =>
                 {
                     transform.GetComponentInChildren<MeshRenderer>().enabled = false;
                     if (_audioManager)
@@ -27,10 +28,10 @@ namespace Game.Scripts
                         _audioManager.Play("Lock");
                         GameManager.Vibrate();
                     }
-                    locking.GetComponentInChildren<DOTweenAnimation>().DOPlay();
-                    if (!locking.transform.GetComponentInChildren<ParticleSystem>().isPlaying)
+                    _locking.GetComponentInChildren<DOTweenAnimation>().DOPlay();
+                    if (!_locking.transform.GetComponentInChildren<ParticleSystem>().isPlaying)
                     {
-                        locking.transform.GetComponentInChildren<ParticleSystem>().Play();
+                        _locking.transform.GetComponentInChildren<ParticleSystem>().Play();
                     }
             
                 });
@@ -39,10 +40,10 @@ namespace Game.Scripts
 
         public void Locked()
         {
-            locking.transform.parent.GetChild(1).tag = "BOLT";
+            _locking.transform.parent.GetChild(1).tag = "BOLT";
             transform.gameObject.SetActive(false);
-            locking.transform.SetParent(null);
-            locking.GetComponent<Rigidbody>().isKinematic = false;
+            _locking.transform.SetParent(null);
+            _locking.GetComponent<Rigidbody>().isKinematic = false;
         }
     
     }

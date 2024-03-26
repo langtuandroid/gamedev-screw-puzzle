@@ -3464,10 +3464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd03b6c6513b5f544baad69103a3d48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalpos: {fileID: 426890204}
-  changePos: {fileID: 1664337104}
-  FailCam: {fileID: 300317128}
-  wedcam: {fileID: 0}
+  _originalPos: {fileID: 426890204}
+  _changePos: {fileID: 1664337104}
+  _failCam: {fileID: 300317128}
+  _wedCam: {fileID: 0}
 --- !u!114 &300317125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8501,10 +8501,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd03b6c6513b5f544baad69103a3d48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalpos: {fileID: 685596283}
-  changePos: {fileID: 1664337104}
-  FailCam: {fileID: 300317128}
-  wedcam: {fileID: 0}
+  _originalPos: {fileID: 685596283}
+  _changePos: {fileID: 1664337104}
+  _failCam: {fileID: 300317128}
+  _wedCam: {fileID: 0}
 --- !u!1 &434285115
 GameObject:
   m_ObjectHideFlags: 0
@@ -19562,20 +19562,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a8dcfcca191fd4298506e76e9725bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chains:
-  - {fileID: 6388225652987297828}
-  - {fileID: 218664410177214111}
-  - {fileID: 6525530597957232131}
-  - {fileID: 2054643836981304872}
-  chainsRigid:
+  _chainsRigid:
   - {fileID: 1255068717}
   - {fileID: 1965701806}
   - {fileID: 620336773}
   - {fileID: 633553681}
-  chainblast: 0
-  girl: {fileID: 0}
-  dupgirl: {fileID: 0}
-  hand: {fileID: 0}
+  _girl: {fileID: 0}
+  _duplicateGirl: {fileID: 0}
+  _hand: {fileID: 0}
 --- !u!1001 &649859768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19937,10 +19931,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd03b6c6513b5f544baad69103a3d48c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalpos: {fileID: 685596283}
-  changePos: {fileID: 1664337104}
-  FailCam: {fileID: 0}
-  wedcam: {fileID: 685596283}
+  _originalPos: {fileID: 685596283}
+  _changePos: {fileID: 1664337104}
+  _failCam: {fileID: 0}
+  _wedCam: {fileID: 685596283}
 --- !u!114 &685596280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22585,26 +22579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a8dcfcca191fd4298506e76e9725bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chains:
-  - {fileID: 5467236008214601976}
-  - {fileID: 4852832775614455255}
-  - {fileID: 1223168584}
-  - {fileID: 1250399885}
-  - {fileID: 1665046780}
-  - {fileID: 8307393988728206906}
-  - {fileID: 273875426719244392}
-  - {fileID: 1464870832785774310}
-  - {fileID: 1432161894454596212}
-  - {fileID: 5084268034031584402}
-  - {fileID: 4086969754262956409}
-  - {fileID: 5595025712916214059}
-  - {fileID: 4144925102775038215}
-  - {fileID: 2100325455}
-  - {fileID: 377467318}
-  - {fileID: 449973050}
-  - {fileID: 59596451}
-  - {fileID: 2006783680}
-  chainsRigid:
+  _chainsRigid:
   - {fileID: 9178069359477409731}
   - {fileID: 5269483410977721770}
   - {fileID: 1223168588}
@@ -22623,10 +22598,9 @@ MonoBehaviour:
   - {fileID: 449973054}
   - {fileID: 59596455}
   - {fileID: 2006783684}
-  chainblast: 0
-  girl: {fileID: 1786228701}
-  dupgirl: {fileID: 1665756034}
-  hand: {fileID: 7560083500433535910}
+  _girl: {fileID: 1786228701}
+  _duplicateGirl: {fileID: 1665756034}
+  _hand: {fileID: 7560083500433535910}
 --- !u!1 &889352045
 GameObject:
   m_ObjectHideFlags: 0
@@ -56884,26 +56858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02a8dcfcca191fd4298506e76e9725bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chains:
-  - {fileID: 416177976}
-  - {fileID: 1723150942}
-  - {fileID: 494378850}
-  - {fileID: 1929517067}
-  - {fileID: 1688425668}
-  - {fileID: 1455796117}
-  - {fileID: 282057355}
-  - {fileID: 801578541}
-  - {fileID: 1551746348}
-  - {fileID: 1754651452}
-  - {fileID: 176596536}
-  - {fileID: 1514484103}
-  - {fileID: 627193821}
-  - {fileID: 953898313}
-  - {fileID: 308825976}
-  - {fileID: 378354348}
-  - {fileID: 1210753502}
-  - {fileID: 492239341}
-  chainsRigid:
+  _chainsRigid:
   - {fileID: 416177978}
   - {fileID: 1723150944}
   - {fileID: 494378852}
@@ -56922,10 +56877,9 @@ MonoBehaviour:
   - {fileID: 378354350}
   - {fileID: 1210753504}
   - {fileID: 492239343}
-  chainblast: 0
-  girl: {fileID: 1786228701}
-  dupgirl: {fileID: 1665756034}
-  hand: {fileID: 634355524}
+  _girl: {fileID: 0}
+  _duplicateGirl: {fileID: 0}
+  _hand: {fileID: 0}
 --- !u!95 &1776625388
 Animator:
   serializedVersion: 5

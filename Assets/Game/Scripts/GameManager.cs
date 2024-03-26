@@ -30,34 +30,34 @@ namespace Game.Scripts
             Done,
         }
         
-        [SerializeField] private Modes gamemodes;
-        
+        [FormerlySerializedAs("gamemodes")] [SerializeField] private Modes _gamemodes;
         [Header("Bolt Shifting")] 
         [SerializeField] private CircleCollider2D _dupColider;
-        [SerializeField] private int totalcount;
-        private int _doneCount;
+        [FormerlySerializedAs("totalcount")] [SerializeField] private int _totalCount;
         [SerializeField] private GameObject _fillParticle;
-
+        
         [Header("ANIMAL")] 
-        [SerializeField] private GameObject Animal;
-        [SerializeField] private GameObject thief;
-        [SerializeField] private GameObject player;
-        [SerializeField] private SplineComputer playerspline;
+        [FormerlySerializedAs("Animal")] [SerializeField] private GameObject _animal;
+        [FormerlySerializedAs("thief")] [SerializeField] private GameObject _thief;
+        [FormerlySerializedAs("player")] [SerializeField] private GameObject _player;
+        [FormerlySerializedAs("playerspline")] [SerializeField] private SplineComputer _playerSpline;
 
         [Header("Birds or cats")]
-        [SerializeField] private bool Birds;
-        [SerializeField] private bool cats;
-        [SerializeField] private bool Dogs,Rabbit,Fox,Zebra,Dear,Flamingo;
-        [SerializeField] private List<GameObject> birds;
-        [SerializeField] private List<DOTweenAnimation> birdsanim;
-        [SerializeField] private List<GameObject> birds2;
-        [SerializeField] private List<DOTweenAnimation> birdsanim2;
-        
-        [SerializeField] private GameObject cagedoor;
-        [SerializeField] private GameObject policeMan;
-        [SerializeField] private GameObject sleepeffect;
-        private bool _once;
-        private bool _fail;
+        [SerializeField] private bool _birds;
+        [SerializeField] private bool _cats;
+        [SerializeField] private bool _dogs;
+        [SerializeField] private bool _rabbit;
+        [SerializeField] private bool _fox;
+        [SerializeField] private bool _zebra;
+        [SerializeField] private bool _dear;
+        [SerializeField] private bool _flamingo;
+        [FormerlySerializedAs("birds")] [SerializeField] private List<GameObject> _birdsObjects;
+        [FormerlySerializedAs("birdsanim")] [SerializeField] private List<DOTweenAnimation> _birdsAnim;
+        [FormerlySerializedAs("birds2")] [SerializeField] private List<GameObject> _birds2;
+        [FormerlySerializedAs("birdsanim2")] [SerializeField] private List<DOTweenAnimation> _birdsAnim2;
+        [FormerlySerializedAs("cagedoor")] [SerializeField] private GameObject _cageDoor;
+        [FormerlySerializedAs("policeMan")] [SerializeField] private GameObject _policeMan;
+        [FormerlySerializedAs("sleepeffect")] [SerializeField] private GameObject _sleepEffect;
         [Inject] private Finish _finish;
         [Inject] private AudioManager _audioManager;
         [Inject] private UIManager _uiManager;
@@ -65,8 +65,12 @@ namespace Game.Scripts
         [Inject] private Board _board;
         [Inject] private Wednesday _wednesday;
         [Inject] private KingKong _kingKong;
-        public SplineComputer PlayerSpline => playerspline;
-        public Modes GameMode => gamemodes;
+        private bool _once;
+        private bool _fail;
+        private int _doneCount;
+        
+        public SplineComputer PlayerSpline => _playerSpline;
+        public Modes GameMode => _gamemodes;
         public State GameState { get; set; }
         public GameObject DupPlug { get; set; }
         
@@ -83,18 +87,18 @@ namespace Game.Scripts
         
         void Update()
         {
-            if (totalcount == _doneCount /*|| test*/)
+            if (_totalCount == _doneCount /*|| test*/)
             {
-                if (!_uiManager.Win && gamemodes == Modes.Null)
+                if (!_uiManager.Win && _gamemodes == Modes.Null)
                 {
                     Win();
                 }
             
-                switch (gamemodes)
+                switch (_gamemodes)
                 {
                     case Modes.BirdsCats or Modes.Dogs:
                     {
-                        if (totalcount == _doneCount && !_once)
+                        if (_totalCount == _doneCount && !_once)
                         {
                             _cameraMove.SecondChange();
                             _once = true;
@@ -112,7 +116,7 @@ namespace Game.Scripts
                         break;
                 }
 
-                switch (gamemodes)
+                switch (_gamemodes)
                 {
                     case Modes.Wednesday when !_once:
                         _cameraMove.SecondChange();
@@ -149,26 +153,26 @@ namespace Game.Scripts
 
         private void TigerAttack()
         {
-            Animal.gameObject.GetComponent<Animator>().SetTrigger("Walk");
-            Animal.transform.DOMove(new Vector3(0, Animal.transform.position.y, 0.5f), 1.5f).SetEase(Ease.Linear);
+            _animal.gameObject.GetComponent<Animator>().SetTrigger("Walk");
+            _animal.transform.DOMove(new Vector3(0, _animal.transform.position.y, 0.5f), 1.5f).SetEase(Ease.Linear);
             DOVirtual.DelayedCall(1.25f, () =>
             {
-                Animal.transform.DOLocalRotate(new Vector3(0, 0, -65), 0.1f, RotateMode.LocalAxisAdd)
+                _animal.transform.DOLocalRotate(new Vector3(0, 0, -65), 0.1f, RotateMode.LocalAxisAdd)
                     .SetEase(Ease.Linear);
             });
             DOVirtual.DelayedCall(1.5f,() =>
             {
             
-                Animal.transform.DOMove(new Vector3(thief.transform.localPosition.x-0.5f, Animal.transform.position.y, thief.transform.localPosition.z+1.5f), 1f).SetEase(Ease.Linear).OnUpdate(
+                _animal.transform.DOMove(new Vector3(_thief.transform.localPosition.x-0.5f, _animal.transform.position.y, _thief.transform.localPosition.z+1.5f), 1f).SetEase(Ease.Linear).OnUpdate(
                     () =>
                     {
-                        Animal.gameObject.GetComponent<Animator>().SetTrigger("Attack");
-                        player.GetComponent<Animator>().SetTrigger("Run");
-                        player.GetComponent<SplineFollower>().enabled = true;
-                        player.GetComponent<SplineFollower>().spline = playerspline;
+                        _animal.gameObject.GetComponent<Animator>().SetTrigger("Attack");
+                        _player.GetComponent<Animator>().SetTrigger("Run");
+                        _player.GetComponent<SplineFollower>().enabled = true;
+                        _player.GetComponent<SplineFollower>().spline = _playerSpline;
                         DOVirtual.DelayedCall(0.4f, () =>
                         {
-                            thief.GetComponent<Animator>().SetTrigger("Fall");
+                            _thief.GetComponent<Animator>().SetTrigger("Fall");
                         });
 
                     });
@@ -181,19 +185,19 @@ namespace Game.Scripts
     
         public void DoorOpen()
         {
-            if (gamemodes == Modes.Kingkong)
+            if (_gamemodes == Modes.Kingkong)
             {
-                cagedoor.GetComponent<Rigidbody>().isKinematic = false;
+                _cageDoor.GetComponent<Rigidbody>().isKinematic = false;
                 _kingKong.KingKongFun();
             }
 
             else
             {
                 _audioManager.Play("Door");
-                cagedoor.transform.DOLocalRotate(new Vector3(0, -120f, 0), 1f,RotateMode.LocalAxisAdd).SetEase(Ease.Linear).OnComplete(
+                _cageDoor.transform.DOLocalRotate(new Vector3(0, -120f, 0), 1f,RotateMode.LocalAxisAdd).SetEase(Ease.Linear).OnComplete(
                     () =>
                     {
-                        if (gamemodes == Modes.Tiger)
+                        if (_gamemodes == Modes.Tiger)
                         {
                             _audioManager.Play("Cheetah");
                         }
@@ -204,48 +208,48 @@ namespace Game.Scripts
         }
         public void AnimalAnimation()
         {
-            if (gamemodes == Modes.Tiger)
+            if (_gamemodes == Modes.Tiger)
             {
                 TigerAttack();
             }
-            if (gamemodes==Modes.BirdsCats || gamemodes==Modes.Dogs)
+            if (_gamemodes==Modes.BirdsCats || _gamemodes==Modes.Dogs)
             {
                 BirdsCats();
             }
         
-            if (gamemodes == Modes.Wednesday)
+            if (_gamemodes == Modes.Wednesday)
             {
                 _wednesday.WednesdayDone();
                 print("Wednesday");
             }
 
-            if (gamemodes==Modes.Elephant)
+            if (_gamemodes==Modes.Elephant)
             {
-                Animal.GetComponent<Animator>().SetTrigger("Run");
+                _animal.GetComponent<Animator>().SetTrigger("Run");
             
                 DOVirtual.DelayedCall(0.3f, () =>
                 {
                     _audioManager.Play("Elephant");
-                    Animal.GetComponent<DOTweenAnimation>().DOPlay();
+                    _animal.GetComponent<DOTweenAnimation>().DOPlay();
                 });
             }
-            if (gamemodes == Modes.Pig)
+            if (_gamemodes == Modes.Pig)
             {
-                Animal.GetComponent<Animator>().SetTrigger("Run");
-                Animal.transform.DOMoveY(Animal.transform.position.y-1.5f,0.02f);
+                _animal.GetComponent<Animator>().SetTrigger("Run");
+                _animal.transform.DOMoveY(_animal.transform.position.y-1.5f,0.02f);
                 DOVirtual.DelayedCall(0.3f, () =>
                 {
                     _audioManager.Play("Pig");
-                    Animal.GetComponent<DOTweenAnimation>().DOPlay();
+                    _animal.GetComponent<DOTweenAnimation>().DOPlay();
                 });
             }
-            if (gamemodes == Modes.KingKong1)
+            if (_gamemodes == Modes.KingKong1)
             {
-                Animal.GetComponent<Animator>().SetTrigger("Run");
-                Animal.transform.DOMoveY(Animal.transform.position.y-0.5f,0.02f);
+                _animal.GetComponent<Animator>().SetTrigger("Run");
+                _animal.transform.DOMoveY(_animal.transform.position.y-0.5f,0.02f);
                 DOVirtual.DelayedCall(0.3f, () =>
                 {
-                    Animal.GetComponent<DOTweenAnimation>().DOPlay();
+                    _animal.GetComponent<DOTweenAnimation>().DOPlay();
                 });
             }
 
@@ -253,41 +257,41 @@ namespace Game.Scripts
 
         private void BirdsCats()
         {
-            if (Birds)
+            if (_birds)
             {
                 _audioManager.Play("Birds");
             }
 
-            if (cats)
+            if (_cats)
             {
                 _audioManager.Play("Cats");
             }
 
-            if (Dogs)
+            if (_dogs)
             {
                 _audioManager.Play("Dogs");
             }
 
-            if (Flamingo)
+            if (_flamingo)
             {
                 _audioManager.Play("Flamingo");
             }
 
-            if (Rabbit)
+            if (_rabbit)
             {
                 _audioManager.Play("Rabbit");
             }
 
-            if (Zebra)
+            if (_zebra)
             {
                 _audioManager.Play("Zebra");
             }
             
-            foreach (var bird in birds)
+            foreach (var bird in _birdsObjects)
             {
                 bird.GetComponent<Animator>().SetTrigger("Fly");
                     
-                if (Birds)
+                if (_birds)
                 {
                     bird.transform
                         .DOMove(
@@ -295,17 +299,17 @@ namespace Game.Scripts
                                 Random.Range(-4f, 0f), Random.Range(-1f, -0.3f)),
                             Random.Range(0.3f, 0.7f)).SetEase(Ease.Linear).OnComplete(() =>
                         {
-                            foreach (var t in birdsanim)
+                            foreach (var t in _birdsAnim)
                             {
                                 t.DOPlay();
                             }
                         });
-                    if (birds2.Count == 0)
+                    if (_birds2.Count == 0)
                     {
                         StartCoroutine(PoliceChaseWait());
                     }
                 }
-                if (cats || Dogs || Rabbit || Fox || Zebra || Dear || Flamingo)
+                if (_cats || _dogs || _rabbit || _fox || _zebra || _dear || _flamingo)
                 {
                     bird.transform
                         .DOMove(
@@ -313,27 +317,27 @@ namespace Game.Scripts
                                 (float)UnityEngine.Random.Range(-4f, -3f), UnityEngine.Random.Range(-1f, -0.3f)),
                             UnityEngine.Random.Range(0.3f, 0.7f)).SetEase(Ease.Linear).OnComplete(() =>
                         {
-                            foreach (var t in birdsanim)
+                            foreach (var t in _birdsAnim)
                             {
                                 t.DOPlay();
                             }
                         });
-                    if (birds2.Count == 0)
+                    if (_birds2.Count == 0)
                     {
                         StartCoroutine(PoliceChaseWait());
                     }
                 }
             }
 
-            if (Birds)
+            if (_birds)
             {
                 _audioManager.Play("Birds");
             }
-            foreach (var bird in birds2)
+            foreach (var bird in _birds2)
             {
                 bird.GetComponent<Animator>().SetTrigger("Fly");
                     
-                if (Birds)
+                if (_birds)
                 {
                     bird.transform
                         .DOMove(
@@ -341,14 +345,14 @@ namespace Game.Scripts
                                 (float)UnityEngine.Random.Range(-4f, 0f), UnityEngine.Random.Range(-1f, -0.3f)),
                             UnityEngine.Random.Range(0.5f, 1f)).SetEase(Ease.Linear).OnComplete(() =>
                         {
-                            foreach (var t in birdsanim2)
+                            foreach (var t in _birdsAnim2)
                             {
                                 t.DOPlay();
                             }
                         });
                     StartCoroutine(PoliceChaseWait());
                 }
-                if (cats || Dogs || Rabbit || Fox || Zebra || Dear || Flamingo)
+                if (_cats || _dogs || _rabbit || _fox || _zebra || _dear || _flamingo)
                 {
                     bird.transform
                         .DOMove(
@@ -356,7 +360,7 @@ namespace Game.Scripts
                                 (float)UnityEngine.Random.Range(-4f, -3f), UnityEngine.Random.Range(-1f, -0.3f)),
                             UnityEngine.Random.Range(0.5f, 1f)).SetEase(Ease.Linear).OnComplete(() =>
                         {
-                            foreach (var t in birdsanim2)
+                            foreach (var t in _birdsAnim2)
                             {
                                 t.DOPlay();
                             }
@@ -369,13 +373,13 @@ namespace Game.Scripts
 
         private void BirdsPoliceChase()
         {
-            policeMan.GetComponent<Animator>().SetTrigger("Chase");
+            _policeMan.GetComponent<Animator>().SetTrigger("Chase");
         }
 
         private void BirdsPoliceMove()
         {
             _audioManager.Play("Police");
-            policeMan.GetComponent<DOTweenAnimation>().DOPlay();
+            _policeMan.GetComponent<DOTweenAnimation>().DOPlay();
             DOVirtual.DelayedCall(3f, () =>
             {
                 Win();
@@ -384,7 +388,7 @@ namespace Game.Scripts
 
         private IEnumerator PoliceChaseWait()
         {
-            sleepeffect.SetActive(false);
+            _sleepEffect.SetActive(false);
             BirdsPoliceChase();
             yield return new WaitForSeconds(1.8f);
             BirdsPoliceMove();
@@ -413,7 +417,7 @@ namespace Game.Scripts
 
         public void AnimalFail()
         {
-            Animal.GetComponent<Animator>().SetTrigger("Fail");
+            _animal.GetComponent<Animator>().SetTrigger("Fail");
         }
         public static void Vibrate()
         {

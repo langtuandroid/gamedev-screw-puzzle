@@ -1,36 +1,37 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game.Scripts
 {
 	public class AudioManager : MonoBehaviour
 	{
 
-		[SerializeField] private Sound[] sounds;
+		[FormerlySerializedAs("sounds")] [SerializeField] private Sound[] _sounds;
 		void Awake()
 		{
-			foreach (Sound s in sounds)
+			foreach (Sound sound in _sounds)
 			{
-				s.source = gameObject.AddComponent<AudioSource>();
-				s.source.clip = s.clip;
-				s.source.loop = s.loop;
+				sound.AudioSource = gameObject.AddComponent<AudioSource>();
+				sound.AudioSource.clip = sound.AudioClip;
+				sound.AudioSource.loop = sound.IsLoop;
 			}
 		}
 		
 
-		public void Play(string sound)
+		public void Play(string soundName)
 		{
-			Sound s = Array.Find(sounds, item => item.name == sound);
-			if (s == null)
+			Sound sound = Array.Find(_sounds, item => item.Name == soundName);
+			if (sound == null)
 			{
 				Debug.LogWarning("Sound: " + name + " not found!");
 				return;
 			}
 
-			s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
-			s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
+			sound.AudioSource.volume = sound.Volume * (1f + UnityEngine.Random.Range(-sound.VolumeVariance / 2f, sound.VolumeVariance / 2f));
+			sound.AudioSource.pitch = sound.Pitch * (1f + UnityEngine.Random.Range(-sound.VolumeVariance / 2f, sound.VolumeVariance / 2f));
 
-			s.source.Play();
+			sound.AudioSource.Play();
 		}
 	}
 }

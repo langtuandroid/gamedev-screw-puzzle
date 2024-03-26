@@ -229,8 +229,9 @@ namespace Game.Scripts
             }
             else
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                PlayerPrefs.SetInt("Level", (PlayerPrefs.GetInt("Level", 1) + 1));
+                int nextBuildIndex = SceneManager.GetActiveScene().buildIndex + 1;
+                SceneManager.LoadScene(nextBuildIndex);
+                PlayerPrefs.SetInt("Level", nextBuildIndex);
             }
 
             PlayerPrefs.SetInt("levelnumber", PlayerPrefs.GetInt("levelnumber", 1) + 1);
@@ -247,6 +248,11 @@ namespace Game.Scripts
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             _levelAttempts++;
             Debug.Log($"Level Attempts::{_levelAttempts}");
+        }
+
+        public void HomeButton()
+        {
+            SceneManager.LoadScene(0);
         }
 
         public void WinPanel()

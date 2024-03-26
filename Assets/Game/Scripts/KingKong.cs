@@ -1,33 +1,32 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Game.Scripts
 {
     public class KingKong : MonoBehaviour
     {
-        
-        [SerializeField] private List<GameObject> chains;
-        [SerializeField] private List<Rigidbody> chainsRigid;
-        [SerializeField] private bool chainblast;
-        [SerializeField] private GameObject girl;
-        [SerializeField] private GameObject dupgirl;
-        [SerializeField] private GameObject hand;
+  
+        [FormerlySerializedAs("chainsRigid")] [SerializeField] private List<Rigidbody> _chainsRigid;
+        [SerializeField] private GameObject _girl;
+        [SerializeField] private GameObject _duplicateGirl;
+        [SerializeField] private GameObject _hand;
         [Inject] private AudioManager _audioManager;
         [Inject] private UIManager _uiManager;
         [Inject] private GameManager _gameManager;
-        
+        private bool _chainBlast;
         void Update()
         {
-            if (chainblast)
+            if (_chainBlast)
             {
-                for (int i = 0; i < chainsRigid.Count; i++)
+                for (int i = 0; i < _chainsRigid.Count; i++)
                 {
-                    chains[i].transform.SetParent(null);
-                    chainsRigid[i].isKinematic = false;
-                    chainsRigid[i]
-                        .AddExplosionForce(5f, chainsRigid[i].transform.position, 1f, 0.1f, ForceMode.Impulse);
+                    _chainsRigid[i].transform.SetParent(null);
+                    _chainsRigid[i].isKinematic = false;
+                    _chainsRigid[i]
+                        .AddExplosionForce(5f, _chainsRigid[i].transform.position, 1f, 0.1f, ForceMode.Impulse);
                 }
             }
         }
@@ -43,19 +42,19 @@ namespace Game.Scripts
             seq.AppendInterval(2.3f);
             seq.AppendCallback(() =>
             {
-                chainblast = true;
+                _chainBlast = true;
             });
         }
 
         public void GirlPosChange()
         {
             _audioManager.Play("Girl");
-            girl.transform.DOLocalMove(dupgirl.transform.localPosition, 0.1f).SetEase(Ease.Linear);
-            girl.transform.DOLocalRotateQuaternion(dupgirl.transform.localRotation,0.1f).SetEase(Ease.Linear);
-            girl.transform.DOScale(dupgirl.transform.localScale,0.1f).SetEase(Ease.Linear);
-            girl.SetActive(false);
-            dupgirl.SetActive(true);
-            dupgirl.transform.SetParent(hand.transform);
+            _girl.transform.DOLocalMove(_duplicateGirl.transform.localPosition, 0.1f).SetEase(Ease.Linear);
+            _girl.transform.DOLocalRotateQuaternion(_duplicateGirl.transform.localRotation,0.1f).SetEase(Ease.Linear);
+            _girl.transform.DOScale(_duplicateGirl.transform.localScale,0.1f).SetEase(Ease.Linear);
+            _girl.SetActive(false);
+            _duplicateGirl.SetActive(true);
+            _duplicateGirl.transform.SetParent(_hand.transform);
           
             DOVirtual.DelayedCall(2.5f, () =>
             {

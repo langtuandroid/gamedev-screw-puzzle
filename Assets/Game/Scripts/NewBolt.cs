@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Game.Scripts
 {
     public class NewBolt : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> connectedBodylist;
+        [FormerlySerializedAs("connectedBodylist")] [SerializeField] private List<GameObject> _connectedBodyList;
         [Inject] private GameManager _gameManger;
         
         private void OnTriggerStay(Collider other)
@@ -15,9 +16,9 @@ namespace Game.Scripts
             {
                 if (_gameManger.GameState == GameManager.State.Idle)
                 {
-                    if (!connectedBodylist.Contains(other.gameObject))
+                    if (!_connectedBodyList.Contains(other.gameObject))
                     {
-                        connectedBodylist.Add(other.gameObject);
+                        _connectedBodyList.Add(other.gameObject);
                     }
                 }
             }
@@ -27,9 +28,9 @@ namespace Game.Scripts
         {
             if (other.gameObject.CompareTag("CUBE"))
             {
-                if (connectedBodylist.Contains(other.gameObject))
+                if (_connectedBodyList.Contains(other.gameObject))
                 {
-                    connectedBodylist.Remove(other.gameObject);
+                    _connectedBodyList.Remove(other.gameObject);
                 }
             }
         }

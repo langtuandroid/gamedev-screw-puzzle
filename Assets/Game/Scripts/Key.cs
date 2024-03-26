@@ -24,7 +24,7 @@ namespace Game.Scripts
                 gameObject.transform.GetComponentInChildren<DOTweenAnimation>().DOComplete();
                 if (_audioManager)
                 {
-                    _gameManager.Vibrate();
+                    GameManager.Vibrate();
                     _audioManager.Play("Key");
                 }
                 gameObject.transform.DOMove(locking.gameObject.transform.position, 0.5f).OnComplete(() =>
@@ -33,7 +33,7 @@ namespace Game.Scripts
                     if (_audioManager)
                     {
                         _audioManager.Play("Lock");
-                        _gameManager.Vibrate();
+                        GameManager.Vibrate();
                     }
                     locking.GetComponentInChildren<DOTweenAnimation>().DOPlay();
                     if (!locking.transform.GetComponentInChildren<ParticleSystem>().isPlaying)

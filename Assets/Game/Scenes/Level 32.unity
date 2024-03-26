@@ -555,6 +555,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 303355363}
   m_PrefabAsset: {fileID: 0}
+--- !u!58 &307242753 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 58667265076749744, guid: a93786865f7affb479a44ecc19712bd5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1027002457}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &380171906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -578,6 +584,11 @@ PrefabInstance:
       propertyPath: totalcount
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 553435712875109062, guid: cb43669d8a446f744b90c21a75e6eb07,
+        type: 3}
+      propertyPath: _dupColider
+      value: 
+      objectReference: {fileID: 307242753}
     - target: {fileID: 553435712875109063, guid: cb43669d8a446f744b90c21a75e6eb07,
         type: 3}
       propertyPath: m_RootOrder

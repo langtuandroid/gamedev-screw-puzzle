@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game.Scripts
 {
@@ -30,11 +31,10 @@ namespace Game.Scripts
         
         public static GameManager instance;
         [SerializeField] private Modes gamemodes;
-      
+        
         [Header("Bolt Shifting")] 
-        public GameObject dupcolider;
-
-        public int totalcount;
+        [SerializeField] private CircleCollider2D _dupColider;
+        [SerializeField] private int totalcount;
         private int _doneCount;
         public GameObject fillPartical;
 
@@ -58,6 +58,11 @@ namespace Game.Scripts
         public GameObject sleepeffect;
         private bool _once;
         private bool _fail;
+        private Finish _finish;
+        private AudioManager _audioManager;
+        private UIManager _uiManager;
+        private CameraMove _cameraMove;
+        private Board _board;
         public Modes GameMode => gamemodes;
         public State GameState { get; set; }
         public GameObject DupPlug { get; set; }
@@ -69,12 +74,18 @@ namespace Game.Scripts
 
         void Start()
         {
+            _audioManager = AudioManager.instance;
+            _uiManager = UIManager.instance;
+            _cameraMove = CameraMove.Instance;
+            _finish = Finish.instance;
+            _board = Board.instance;
+            
             GameState = State.Done;
-            if (Board.instance)
+            if (_board)
             {
-                transform.position = Board.instance.transform.position;
+                transform.position = _board.transform.position;
             }
-            dupcolider.GetComponent<CircleCollider2D>().enabled = false;
+            _dupColider.enabled = false;
             Vibration.Init();
         }
         
@@ -82,68 +93,67 @@ namespace Game.Scripts
         {
             if (totalcount == _doneCount /*|| test*/)
             {
-                if (!UIManager.instance.Win && gamemodes==Modes.Null)
+                if (!_uiManager.Win && gamemodes == Modes.Null)
                 {
                     Win();
                 }
             
-                if (gamemodes == Modes.BirdsCats || gamemodes==Modes.Dogs)
+                switch (gamemodes)
                 {
-                    if (totalcount == _doneCount && !_once)
+                    case Modes.BirdsCats or Modes.Dogs:
                     {
-                        CameraMove.Instance.SecondChange();
-                        _once = true;
-                    }
-                }
-            
-                if ((gamemodes == Modes.Tiger || gamemodes == Modes.Elephant || gamemodes==Modes.Pig) && !_once)
-                {
-                    CameraMove.Instance.SecondChange();
-                    _once = true;
-                    DOVirtual.DelayedCall(4.2f, () =>
-                    {
-                        StartCoroutine(PoliceChaseWait());
-                    });
-
-                }
-
-                if (gamemodes == Modes.Wednesday && !_once)
-                {
-                    CameraMove.Instance.SecondChange();
-                    _once = true;
-                }
-
-                if (gamemodes == Modes.Kingkong && !_once)
-                {
-                    _once = true;
-                    CameraMove.Instance.SecondChange();
-                }
-                if (gamemodes == Modes.KingKong1 && !_once)
-                {
-                    _once = true;
-                    CameraMove.Instance.SecondChange();
-                    DOVirtual.DelayedCall(4.2f, () =>
-                    {
-                        if (AudioManager.instance)
+                        if (totalcount == _doneCount && !_once)
                         {
-                            AudioManager.instance.Play("KingKong");
+                            _cameraMove.SecondChange();
+                            _once = true;
                         }
-                        StartCoroutine(PoliceChaseWait());
-                    });
+
+                        break;
+                    }
+                    case Modes.Tiger or Modes.Elephant or Modes.Pig when !_once:
+                        _cameraMove.SecondChange();
+                        _once = true;
+                        DOVirtual.DelayedCall(4.2f, () =>
+                        {
+                            StartCoroutine(PoliceChaseWait());
+                        });
+                        break;
+                }
+
+                switch (gamemodes)
+                {
+                    case Modes.Wednesday when !_once:
+                        _cameraMove.SecondChange();
+                        _once = true;
+                        break;
+                    case Modes.Kingkong when !_once:
+                        _once = true;
+                        _cameraMove.SecondChange();
+                        break;
+                    case Modes.KingKong1 when !_once:
+                        _once = true;
+                        _cameraMove.SecondChange();
+                        DOVirtual.DelayedCall(4.2f, () =>
+                        {
+                            if (AudioManager.instance)
+                            {
+                                _audioManager.Play("KingKong");
+                            }
+                            StartCoroutine(PoliceChaseWait());
+                        });
+                        break;
                 }
             }
-        
-            if (_fail && !_once)
-            {
-                CameraMove.Instance.Fail();
-                _once = true;
-            }
+
+            if (!_fail || _once) return;
+            _cameraMove.Fail();
+            _once = true;
 
         }
         public void Win()
         {
             Finish.instance.PlayBlastParticle();
-            AudioManager.instance.Play("Win");
+            _audioManager.Play("Win");
             UIManager.instance.Win = true;
             UIManager.instance.WinPanel();
         }
@@ -176,10 +186,7 @@ namespace Game.Scripts
             });
             if (!UIManager.instance.Win)
             {
-                DOVirtual.DelayedCall(5f, () =>
-                {
-                    Win();
-                });
+                DOVirtual.DelayedCall(5f, Win);
             }
         }
     
@@ -195,14 +202,14 @@ namespace Game.Scripts
             {
                 if (AudioManager.instance)
                 {
-                    AudioManager.instance.Play("Door");
+                    _audioManager.Play("Door");
                 }
                 cagedoor.transform.DOLocalRotate(new Vector3(0, -120f, 0), 1f,RotateMode.LocalAxisAdd).SetEase(Ease.Linear).OnComplete(
                     () =>
                     {
                         if (gamemodes == Modes.Tiger)
                         {
-                            AudioManager.instance.Play("Cheetah");
+                            _audioManager.Play("Cheetah");
                         }
                         AnimalAnimation();
                 
@@ -235,7 +242,7 @@ namespace Game.Scripts
                 {
                     if (AudioManager.instance)
                     {
-                        AudioManager.instance.Play("Elephant");
+                        _audioManager.Play("Elephant");
                     }
                     Animal.GetComponent<DOTweenAnimation>().DOPlay();
                 });
@@ -246,9 +253,9 @@ namespace Game.Scripts
                 Animal.transform.DOMoveY(Animal.transform.position.y-1.5f,0.02f);
                 DOVirtual.DelayedCall(0.3f, () =>
                 {
-                    if (AudioManager.instance)
+                    if (_audioManager)
                     {
-                        AudioManager.instance.Play("Pig");
+                        _audioManager.Play("Pig");
                     }
                     Animal.GetComponent<DOTweenAnimation>().DOPlay();
                 });
@@ -267,36 +274,36 @@ namespace Game.Scripts
 
         private void BirdsCats()
         {
-            if (AudioManager.instance)
+            if (_audioManager)
             {
                 if (Birds)
                 {
-                    AudioManager.instance.Play("Birds");
+                    _audioManager.Play("Birds");
                 }
 
                 if (cats)
                 {
-                    AudioManager.instance.Play("Cats");
+                    _audioManager.Play("Cats");
                 }
 
                 if (Dogs)
                 {
-                    AudioManager.instance.Play("Dogs");
+                    _audioManager.Play("Dogs");
                 }
 
                 if (Flamingo)
                 {
-                    AudioManager.instance.Play("Flamingo");
+                    _audioManager.Play("Flamingo");
                 }
 
                 if (Rabbit)
                 {
-                    AudioManager.instance.Play("Rabbit");
+                    _audioManager.Play("Rabbit");
                 }
 
                 if (Zebra)
                 {
-                    AudioManager.instance.Play("Zebra");
+                    _audioManager.Play("Zebra");
                 }
 
                    
@@ -309,9 +316,9 @@ namespace Game.Scripts
                 {
                     bird.transform
                         .DOMove(
-                            new Vector3((float)UnityEngine.Random.Range(-1.14f, 1.14f),
-                                (float)UnityEngine.Random.Range(-4f, 0f), UnityEngine.Random.Range(-1f, -0.3f)),
-                            UnityEngine.Random.Range(0.3f, 0.7f)).SetEase(Ease.Linear).OnComplete(() =>
+                            new Vector3(Random.Range(-1.14f, 1.14f),
+                                Random.Range(-4f, 0f), Random.Range(-1f, -0.3f)),
+                            Random.Range(0.3f, 0.7f)).SetEase(Ease.Linear).OnComplete(() =>
                         {
                             foreach (var t in birdsanim)
                             {
@@ -343,11 +350,11 @@ namespace Game.Scripts
                 }
             }
 
-            if (AudioManager.instance)
+            if (_audioManager)
             {
                 if (Birds)
                 {
-                    AudioManager.instance.Play("Birds");
+                    _audioManager.Play("Birds");
                 }
             }
             foreach (var bird in birds2)
@@ -395,9 +402,9 @@ namespace Game.Scripts
 
         private void BirdsPoliceMove()
         {
-            if (AudioManager.instance)
+            if (_audioManager)
             {
-                AudioManager.instance.Play("Police");
+                _audioManager.Play("Police");
             }
             policeMan.GetComponent<DOTweenAnimation>().DOPlay();
             DOVirtual.DelayedCall(3f, () =>
@@ -418,7 +425,18 @@ namespace Game.Scripts
         {
             _doneCount++;
         }
-        public void Vibrate()
+
+        public void EnableDupCollider(Vector3 pos)
+        {
+            _dupColider.transform.localPosition = pos;
+            _dupColider.enabled = true;
+        }
+
+        public void DisableDupCollider()
+        {
+            _dupColider.enabled = false;
+        }
+        public static void Vibrate()
         {
             Vibration.Vibrate(40);
             print("vibrate");

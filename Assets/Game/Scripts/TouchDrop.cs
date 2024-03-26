@@ -79,12 +79,11 @@ namespace Game.Scripts
                 {
                     _uiManager.Fill = false;
                 } 
-                _gameManager.Vibrate();
+                GameManager.Vibrate();
                 var parent = _gameManager.DupPlug.transform.parent;
                 var position1 = fillingReference.transform.position;
             
-                _gameManager.dupcolider.transform.localPosition = parent.transform.localPosition;
-                _gameManager.dupcolider.GetComponent<CircleCollider2D>().enabled = true;
+                _gameManager.EnableDupCollider(parent.transform.localPosition);
                 parent.GetComponent<CircleCollider2D>().enabled = false;
                 
                 parent.DOMoveX(position1.x, 0.25f);
@@ -99,7 +98,7 @@ namespace Game.Scripts
                             parent.transform.localPosition.z + _boltRemoveHeight, 0.3f)
                         .SetEase(Ease.Linear).OnComplete(() =>
                         {
-                            _gameManager.dupcolider.GetComponent<CircleCollider2D>().enabled = false;
+                            _gameManager.DisableDupCollider();
                             parent.GetComponent<CircleCollider2D>().enabled = true;
                             _gameManager.GameState = GameManager.State.Done;
                         });
@@ -112,7 +111,7 @@ namespace Game.Scripts
         {
             if (_gameManager.DupPlug != null)
             {
-                _gameManager.Vibrate();
+                GameManager.Vibrate();
                 _audioManager.Play("Bolt");
                 if (_uiManager.Pin)
                 {
@@ -154,7 +153,7 @@ namespace Game.Scripts
                     _uiManager.Pin = false;
                     _uiManager.Fill = true;
                 }
-                _gameManager.Vibrate();
+                GameManager.Vibrate();
                 _audioManager.Play("Bolt");
                 var parent = boltReference.transform.parent;
                 parent.DOLocalMoveZ(parent.localPosition.z - _boltRemoveHeight, 0.3f).SetEase(Ease.Linear).OnComplete(() =>

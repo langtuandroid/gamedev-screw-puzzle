@@ -572,7 +572,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dupcolider
       value: 
-      objectReference: {fileID: 1554761631}
+      objectReference: {fileID: 1027002458}
     - target: {fileID: 553435712875109062, guid: cb43669d8a446f744b90c21a75e6eb07,
         type: 3}
       propertyPath: totalcount
@@ -3213,6 +3213,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 445017802}
   m_SourcePrefab: {fileID: 100100000, guid: a93786865f7affb479a44ecc19712bd5, type: 3}
+--- !u!1 &1027002458 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1192935101325849, guid: a93786865f7affb479a44ecc19712bd5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1027002457}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1027002459 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1218352576057821, guid: a93786865f7affb479a44ecc19712bd5,
@@ -7044,12 +7050,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551692342}
   m_Mesh: {fileID: -5597002278806442958, guid: d4ff323ac95a253489edb779dabcb241, type: 3}
---- !u!1 &1554761631 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1946423693721923, guid: a93786865f7affb479a44ecc19712bd5,
-    type: 3}
-  m_PrefabInstance: {fileID: 1027002457}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1602499471
 MonoBehaviour:
   m_ObjectHideFlags: 0

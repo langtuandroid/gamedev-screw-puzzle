@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Zenject;
 
@@ -10,6 +11,7 @@ namespace Game.Scripts
 {
     public class GameManager : MonoBehaviour
     {
+        [Inject] private LevelManager _levelManager;
         public enum Modes
         {
             Null,
@@ -145,6 +147,10 @@ namespace Game.Scripts
         }
         public void Win()
         {
+            if (_levelManager.MaxLevel == SceneManager.GetActiveScene().buildIndex)
+            {
+                _levelManager.NextLevel();
+            }
             _finish.PlayBlastParticle();
             _audioManager.Play("Win");
             _uiManager.Win = true;

@@ -12,6 +12,7 @@ namespace Game.Scripts
 {
     public class UIManager : MonoBehaviour
     {
+        [Inject] private LevelManager _levelManager;
         private static int _currentLvl;
         private static int _lvlNum;
         private static int _levelAttempts;
@@ -39,7 +40,8 @@ namespace Game.Scripts
 
         private void Awake()
         {
-            _lvlNum = PlayerPrefs.GetInt("levelnumber", 1);
+            _lvlNum = _levelManager.CurrentLevel;
+            _lvlNumImages[^1].GetComponent<Image>().sprite = _specialImages[(_lvlNum - 1) / 5];
             LevelNumberHandler();
             
         }
@@ -96,7 +98,7 @@ namespace Game.Scripts
             {
                 if (i < lvlNumber - 1)
                 {
-                    _lvlNumImages[i].GetComponent<Image>().color = Color.green;
+                    _lvlNumImages[i].GetComponent<Image>().color = new Color(1f, 0.71f, 0);
                 }
                 else if (i == lvlNumber - 1) _lvlNumImages[i].GetComponent<Image>().sprite = _filling;
             }
@@ -108,35 +110,35 @@ namespace Game.Scripts
                     _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 1).ToString();
                     _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 2).ToString();
                     _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 3).ToString();
-                    BossLevelImg(true);
+                    //BossLevelImg(true);
                     break;
                 case 2:
                     _lvlNumImages[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 1).ToString();
                     _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _lvlNum.ToString();
                     _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 1).ToString();
                     _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 2).ToString();
-                    BossLevelImg(false);
+                    //BossLevelImg(false);
                     break;
                 case 3:
                     _lvlNumImages[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 2).ToString();
                     _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 1).ToString();
                     _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _lvlNum.ToString();
                     _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum + 1).ToString();
-                    BossLevelImg(false);
+                    //BossLevelImg(false);
                     break;
                 case 4:
                     _lvlNumImages[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 3).ToString();
                     _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 2).ToString();
                     _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 1).ToString();
                     _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = _lvlNum.ToString();
-                    BossLevelImg(false);
+                    //BossLevelImg(false);
                     break;
                 case 5:
                     _lvlNumImages[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 4).ToString();
                     _lvlNumImages[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 3).ToString();
                     _lvlNumImages[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 2).ToString();
                     _lvlNumImages[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = (_lvlNum - 1).ToString();
-                    BossLevelImg(false);
+                    //BossLevelImg(false);
                     break;
             }
         }
@@ -220,21 +222,7 @@ namespace Game.Scripts
                 GameManager.Vibrate();
             }
 
-            Debug.Log($"Level Attempts::{_levelAttempts}");
-            _levelAttempts = 0;
-            if (PlayerPrefs.GetInt("Level", 1) >= SceneManager.sceneCountInBuildSettings - 1)
-            {
-                SceneManager.LoadScene(Random.Range(0, SceneManager.sceneCountInBuildSettings - 1));
-                PlayerPrefs.SetInt("Level", (PlayerPrefs.GetInt("Level", 1) + 1));
-            }
-            else
-            {
-                int nextBuildIndex = SceneManager.GetActiveScene().buildIndex + 1;
-                SceneManager.LoadScene(nextBuildIndex);
-                PlayerPrefs.SetInt("Level", nextBuildIndex);
-            }
-
-            PlayerPrefs.SetInt("levelnumber", PlayerPrefs.GetInt("levelnumber", 1) + 1);
+            _levelManager.LoadLevel(_levelManager.CurrentLevel + 1);
         }
 
         public void RetryButton()

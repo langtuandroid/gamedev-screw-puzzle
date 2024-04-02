@@ -892,7 +892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75797e63c6691234fa9fa8c1d3fcae37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectedBodylist: []
+  _connectedBodyList: []
 --- !u!114 &462488998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,7 +905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75797e63c6691234fa9fa8c1d3fcae37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectedBodylist: []
+  _connectedBodyList: []
 --- !u!114 &462488999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,7 +918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75797e63c6691234fa9fa8c1d3fcae37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectedBodylist: []
+  _connectedBodyList: []
 --- !u!1001 &568202532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1842,7 +1842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4c5ec5d40188c4aab31a4b45a032c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locking: {fileID: 1860273455193441}
+  _locking: {fileID: 1860273455193441}
 --- !u!54 &1675776518
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2163,7 +2163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75797e63c6691234fa9fa8c1d3fcae37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectedBodylist: []
+  _connectedBodyList: []
 --- !u!136 &1756797946
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -27389,6 +27389,11 @@ PrefabInstance:
     - target: {fileID: 1801901272091218583, guid: 00d90c2676876274faade1192be002fe,
         type: 3}
       propertyPath: KeyText
+      value: 
+      objectReference: {fileID: 2538770813241519530}
+    - target: {fileID: 1801901272091218583, guid: 00d90c2676876274faade1192be002fe,
+        type: 3}
+      propertyPath: _keyText
       value: 
       objectReference: {fileID: 2538770813241519530}
     - target: {fileID: 1801901272091218583, guid: 00d90c2676876274faade1192be002fe,

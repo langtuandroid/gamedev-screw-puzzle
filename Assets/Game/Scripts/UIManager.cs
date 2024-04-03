@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -41,7 +42,7 @@ namespace Game.Scripts
         private void Awake()
         {
             _lvlNum = _levelManager.CurrentLevel;
-            _lvlNumImages[^1].GetComponent<Image>().sprite = _specialImages[(_lvlNum - 1) / 5];
+            _lvlNumImages[^1].GetComponent<Image>().sprite = _specialImages[Math.Clamp((_lvlNum - 1) / 5, 0, _specialImages.Count)];
             LevelNumberHandler();
             
         }

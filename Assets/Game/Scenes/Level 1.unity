@@ -977,6 +977,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2538770814680146964, guid: 00d90c2676876274faade1192be002fe,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 426890203}
+    - target: {fileID: 2538770814680146964, guid: 00d90c2676876274faade1192be002fe,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538770814680146964, guid: 00d90c2676876274faade1192be002fe,
+        type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2538770814680146967, guid: 00d90c2676876274faade1192be002fe,
         type: 3}
       propertyPath: m_Pivot.x

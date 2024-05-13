@@ -69,6 +69,7 @@ crashlytics-build.properties
 
 # Firebase bundle
 /[Aa]ssets/Firebase/Plugins/x86_64/FirebaseCppApp-11_6_0.bundle
+/[Aa]ssets/Firebase/Plugins/x86_64/FirebaseCppApp-11_8_1.bundle
 
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta

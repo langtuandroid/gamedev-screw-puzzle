@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4d64b8099bd4785ad7a0d42a60f7a4, type: 3}
+  m_Name: PurchaseID
+  m_EditorClassIdentifier: 
+  _subscriptionMonthProductID: 
+  _subscriptionYearProductID: 
+  _subscriptionForeverProductID: 
+  _buy100Id: 
+  _buy300Id: 
+  _buy1000Id: 
+  _buy3000Id: 
+  _subscriptionMonthID_Test: sub.gamedev.test.one.month
+  _subscriptionYearID_Test: sub.gamedev.test.one.year
+  _subscriptionForeverID_Test: sub.gamedev.deletead.forever
+  _buy100Id_Test: test.gamedev.buy100
+  _buy300Id_Test: test.gamedev.buy300
+  _buy1000Id_Test: test.gamedev.buy1000
+  _buy3000Id_Test: test.gamedev.buy3000
+  _isProduction: 0

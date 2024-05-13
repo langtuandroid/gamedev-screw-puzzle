@@ -1,0 +1,579 @@
+fileFormatVersion: 2
+guid: 652f522f9c372c34e99e8a7d34225bb9
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 0-_0-_Elephant
+    second: {fileID: 2100000, guid: 662ee91f036255c4bb30f4f2bdf463a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 1-_0-_Elephant
+    second: {fileID: 2100000, guid: 2f2ed36b1c2d5724795efa4aaf5e268a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 10-_9-_EyeShine
+    second: {fileID: 2100000, guid: d6e3c0ac41d23b443a7dbc81c3fe160b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 11-_12-_UniqueID_4677
+    second: {fileID: 2100000, guid: 84a32730b902e1044a5ba4dcf0189d56, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 12-_12-_UniqueID_4677
+    second: {fileID: 2100000, guid: c3084042fc7f4954f9327a53edb9de1e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 13-_13-_UniqueID_4690
+    second: {fileID: 2100000, guid: 754f95a66f040784da2b1fd68df6ec5e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 14-_13-_UniqueID_4690
+    second: {fileID: 2100000, guid: 406a06590766bdb4399537bdc435a88c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 2-_2-_Elephant_Elepha
+    second: {fileID: 2100000, guid: b3371b872d68751418fcb3689cc228fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 3-_2-_Elephant_Elepha
+    second: {fileID: 2100000, guid: f37b4e40d59fb63449f6051913f2354a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 4-_4-_UniqueID_4499
+    second: {fileID: 2100000, guid: 0fd5bb64cbdfea24c8a4a6f3d8138ef6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 5-_6-_UniqueID_4499
+    second: {fileID: 2100000, guid: 0ff04a81a5d643b4cacad913b3962e2e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 6-_6-_UniqueID_4499
+    second: {fileID: 2100000, guid: 7626ccfcc099d874188b23ff83799977, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 7-_8-_Eye
+    second: {fileID: 2100000, guid: e9ec7881987918348b2dbdc6f1ae08bc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 8-_8-_Eye
+    second: {fileID: 2100000, guid: 71cc53c97454c9645aeed0229904b21a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 9-_9-_EyeShine
+    second: {fileID: 2100000, guid: e16d80f721767124f941563c19707fc2, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: model(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: szkielet-0
+      parentName: model(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 0-_Tongue
+      parentName: szkielet-0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 13-_UniqueID_4690
+      parentName: szkielet-0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 12-_UniqueID_4677
+      parentName: szkielet-0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 9-_EyeShine
+      parentName: szkielet-0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 8-_Eye
+      parentName: szkielet-0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 6-_UniqueID_4499
+      parentName: szkielet-0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 4-_UniqueID_4499
+      parentName: szkielet-0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 2-_Elephant
+      parentName: szkielet-0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UniqueID_0
+      parentName: szkielet-0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: -0.7071068, z: 0.000000059604645, w: 0}
+      scale: {x: 1.0000019, y: 1.0000019, z: 1.0000019}
+    - name: UniqueID_4491
+      parentName: UniqueID_0
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: UniqueID_4493
+      parentName: UniqueID_4491
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UniqueID_4811
+      parentName: UniqueID_4493
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UniqueID_4540
+      parentName: UniqueID_4493
+      position: {x: -0.08300859, y: 0.0000026628184, z: 29.5421}
+      rotation: {x: 0.000000089406974, y: 0.000000089406974, z: -0.7071063, w: -0.70710737}
+      scale: {x: 0.99999994, y: 1.0000006, z: 1.0000007}
+    - name: UniqueID_4542
+      parentName: UniqueID_4540
+      position: {x: -0.00000466705, y: 0.000026767088, z: -55.555573}
+      rotation: {x: -0.16131365, y: 0.68846035, z: 0.5972688, w: -0.37851062}
+      scale: {x: 0.9999998, y: 1.0000008, z: 0.99999887}
+    - name: UniqueID_4545
+      parentName: UniqueID_4542
+      position: {x: 0.025134271, y: -6.8620396, z: 0.0000098510645}
+      rotation: {x: -0.00000070274405, y: -0.0000020861628, z: -0.00039768213, w: 0.99999994}
+      scale: {x: 1.0000002, y: 0.9999986, z: 1.0000019}
+    - name: UniqueID_4772
+      parentName: UniqueID_4545
+      position: {x: -0.03054924, y: 6.8620205, z: 15.979299}
+      rotation: {x: 0.9890674, y: -0.11784655, z: 0.00092195935, w: 0.08864009}
+      scale: {x: 1.0000033, y: 1.0000077, z: 1.0000032}
+    - name: UniqueID_4775
+      parentName: UniqueID_4772
+      position: {x: -0.000006854534, y: -13.8089, z: 0.000005967915}
+      rotation: {x: 0.00000012665986, y: 0.00000039581204, z: 0.001144424, w: 0.99999934}
+      scale: {x: 0.99999946, y: 1.0000005, z: 1}
+    - name: UniqueID_4778
+      parentName: UniqueID_4775
+      position: {x: 0.000012069941, y: -10.629195, z: 0.00000769645}
+      rotation: {x: 0.08093248, y: -0.2589301, z: -0.1429946, w: 0.95181805}
+      scale: {x: 1.0000002, y: 0.99999994, z: 0.99999934}
+    - name: UniqueID_4781
+      parentName: UniqueID_4778
+      position: {x: -11.726895, y: -5.158081, z: 0.00000053154724}
+      rotation: {x: 0.00000005960465, y: 0.0000001192093, z: -0.70710707, w: 0.7071066}
+      scale: {x: 1.0000031, y: 1.0000014, z: 1.0000038}
+    - name: UniqueID_4784
+      parentName: UniqueID_4545
+      position: {x: -0.030637806, y: 6.862021, z: -15.979297}
+      rotation: {x: 0.9890674, y: -0.117847, z: -0.00092432805, w: -0.088639595}
+      scale: {x: 1.0000025, y: 1.0000045, z: 1.0000011}
+    - name: UniqueID_4787
+      parentName: UniqueID_4784
+      position: {x: -0.0000069737434, y: -13.8089, z: 0.000004053116}
+      rotation: {x: -0.0104563525, y: -0.000011862246, z: 0.0069626067, w: 0.9999211}
+      scale: {x: 1.0000019, y: 1.0000045, z: 1.0000027}
+    - name: UniqueID_4790
+      parentName: UniqueID_4787
+      position: {x: 0.0000131726265, y: -10.629194, z: 0.0000035315752}
+      rotation: {x: 0.020855041, y: -0.18661326, z: -0.08634609, w: 0.97840935}
+      scale: {x: 0.999999, y: 0.99999756, z: 0.9999997}
+    - name: UniqueID_4793
+      parentName: UniqueID_4790
+      position: {x: -11.726897, y: -5.1580815, z: 0.0000031320506}
+      rotation: {x: -0.004966367, y: 0.0049663107, z: -0.7070891, w: 0.7070896}
+      scale: {x: 1.0000029, y: 1.0000031, z: 1.0000012}
+    - name: UniqueID_4796
+      parentName: UniqueID_4545
+      position: {x: 19.457005, y: -3.1421323, z: -0.0000311837}
+      rotation: {x: 0.000002788569, y: -0.0000028312206, z: 0.71304774, w: 0.7011155}
+      scale: {x: 1.0000033, y: 1.0000027, z: 1.0000018}
+    - name: UniqueID_4799
+      parentName: UniqueID_4796
+      position: {x: 0.008828044, y: -11.089507, z: 0.00000026696944}
+      rotation: {x: 0.00000006670735, y: -0.000000019917254, z: -0.006359995, w: 0.9999798}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000001}
+    - name: UniqueID_4802
+      parentName: UniqueID_4799
+      position: {x: 0.008837357, y: -11.089305, z: 0.0000003812238}
+      rotation: {x: -0.000000019228425, y: 0.00000017070145, z: 0.0013216959, w: 0.9999991}
+      scale: {x: 0.99999934, y: 0.9999984, z: 0.9999985}
+    - name: UniqueID_4805
+      parentName: UniqueID_4802
+      position: {x: 0.0088143945, y: -11.089516, z: 0.00000047580033}
+      rotation: {x: -0.000000029802319, y: -0.000000029802319, z: -0.009248643, w: 0.9999572}
+      scale: {x: 1.0000012, y: 1.0000017, z: 1.0000001}
+    - name: UniqueID_4808
+      parentName: UniqueID_4805
+      position: {x: 0.008724332, y: -11.090714, z: -0.00000027920032}
+      rotation: {x: 0.000000059604645, y: 0.000000029802322, z: -0.07775724, w: 0.9969724}
+      scale: {x: 1.0000006, y: 1.0000002, z: 1.0000018}
+    - name: UniqueID_4548
+      parentName: UniqueID_4545
+      position: {x: 0.026311819, y: -31.561913, z: -0.000000019554207}
+      rotation: {x: -0.000000072108485, y: -0.00000002982915, z: -0.0000019371814,
+        w: 1}
+      scale: {x: 0.9999986, y: 0.9999985, z: 1.0000002}
+    - name: UniqueID_4757
+      parentName: UniqueID_4548
+      position: {x: 4.209648, y: -19.559896, z: -2.5095797}
+      rotation: {x: -0.0077067926, y: 0.7244816, z: 0.6892101, w: 0.007519871}
+      scale: {x: 1.0000043, y: 1.0000017, z: 1.0000049}
+    - name: UniqueID_4760
+      parentName: UniqueID_4757
+      position: {x: -0.0000012269447, y: -16.274994, z: 0.002046295}
+      rotation: {x: -0.065347895, y: -0.0076399613, z: -0.044533815, w: 0.996839}
+      scale: {x: 0.9999998, y: 1.0000019, z: 1.0000001}
+    - name: UniqueID_4763
+      parentName: UniqueID_4760
+      position: {x: 0.000005722046, y: -16.541204, z: -0.0000153929}
+      rotation: {x: -0.000035107136, y: -0.0000018775463, z: 0.0010223538, w: 0.9999995}
+      scale: {x: 1.0000005, y: 1.000002, z: 1.0000004}
+    - name: UniqueID_4766
+      parentName: UniqueID_4763
+      position: {x: -0.00001692772, y: -13.898905, z: -0.0009885766}
+      rotation: {x: 0.0767515, y: 0.7050221, z: 0.050473545, w: 0.70321083}
+      scale: {x: 1.0000012, y: 1.0000012, z: 1.0000001}
+    - name: UniqueID_4769
+      parentName: UniqueID_4766
+      position: {x: 0.000011056662, y: -10.202306, z: -0.000016331673}
+      rotation: {x: 0.00011276081, y: 0.00038115308, z: 0.28523958, w: 0.95845616}
+      scale: {x: 1.0000019, y: 0.999994, z: 1.0000045}
+    - name: UniqueID_4742
+      parentName: UniqueID_4548
+      position: {x: 4.209668, y: -19.559895, z: 2.5095599}
+      rotation: {x: -0.007708631, y: 0.7244818, z: -0.6892099, w: -0.007521718}
+      scale: {x: 1.0000008, y: 1.0000007, z: 1.0000017}
+    - name: UniqueID_4745
+      parentName: UniqueID_4742
+      position: {x: 0.000004199941, y: -16.275, z: -0.0020556184}
+      rotation: {x: -0.0653469, y: -0.007640049, z: 0.04453285, w: -0.99683917}
+      scale: {x: 1.0000023, y: 1.0000036, z: 1.0000023}
+    - name: UniqueID_4748
+      parentName: UniqueID_4745
+      position: {x: -0.000006556511, y: -16.541208, z: -0.000026009977}
+      rotation: {x: 0.00003258884, y: 0.0000018179417, z: 0.0010204315, w: 0.9999995}
+      scale: {x: 1.0000014, y: 1.0000001, z: 1.0000014}
+    - name: UniqueID_4751
+      parentName: UniqueID_4748
+      position: {x: -0.0000014305115, y: -13.898901, z: 0.00090035424}
+      rotation: {x: 0.0767509, y: 0.70502234, z: -0.050472144, w: -0.7032108}
+      scale: {x: 1.0000026, y: 1.0000007, z: 0.99999696}
+    - name: UniqueID_4754
+      parentName: UniqueID_4751
+      position: {x: -0.000004172325, y: -10.202208, z: -0.0000113248825}
+      rotation: {x: -0.000112980604, y: -0.00038176775, z: 0.28523907, w: 0.9584564}
+      scale: {x: 1, y: 1.0000021, z: 0.99999994}
+    - name: UniqueID_4551
+      parentName: UniqueID_4548
+      position: {x: 0.2663922, y: -27.141706, z: -0.0000001966346}
+      rotation: {x: -0.0000003562434, y: -0.000000047056982, z: -0.10981591, w: 0.9939519}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1.0000004}
+    - name: UniqueID_4553
+      parentName: UniqueID_4551
+      position: {x: -1.5823932, y: -8.343383, z: 0.0000019891431}
+      rotation: {x: -0.0771183, y: 0.01759073, z: 0.03568114, w: 0.99622804}
+      scale: {x: 0.9999991, y: 1.0000001, z: 0.999999}
+    - name: UniqueID_4640
+      parentName: UniqueID_4553
+      position: {x: -26.559107, y: -28.8404, z: -12.0808}
+      rotation: {x: 0.000015301333, y: -0.03492595, z: -0.99938995, w: -0.0000005289913}
+      scale: {x: 1.000005, y: 1.0000138, z: 1.0000051}
+    - name: UniqueID_4625
+      parentName: UniqueID_4553
+      position: {x: -31.706598, y: 0.24972703, z: 15.5038}
+      rotation: {x: -0.0000004768481, y: 0.000005781651, z: -0.00040055066, w: 0.99999994}
+      scale: {x: 1.0000027, y: 1.0000006, z: 1.0000023}
+    - name: UniqueID_4652
+      parentName: UniqueID_4553
+      position: {x: -25.42401, y: -48.627, z: -8.425049}
+      rotation: {x: 0.7071068, y: 0.000282228, z: -0.00028218993, w: 0.7071067}
+      scale: {x: 1.0000032, y: 1.0000017, z: 1.0000044}
+    - name: UniqueID_4637
+      parentName: UniqueID_4553
+      position: {x: -26.559008, y: -28.84039, z: 12.081}
+      rotation: {x: 0.000021444803, y: -0.026341569, z: 0.999653, w: 0.0000005643814}
+      scale: {x: 1.0000024, y: 1.0000051, z: 1.0000018}
+    - name: UniqueID_4634
+      parentName: UniqueID_4553
+      position: {x: -25.56991, y: -39.9925, z: -12.321299}
+      rotation: {x: -0.15167059, y: 0.98360604, z: -0.015056283, w: 0.09637684}
+      scale: {x: 1.0000039, y: 1.0000039, z: 1.0000024}
+    - name: UniqueID_4631
+      parentName: UniqueID_4553
+      position: {x: -25.56991, y: -39.99249, z: 12.750701}
+      rotation: {x: -0.15167041, y: 0.9836059, z: 0.015056395, w: -0.0963788}
+      scale: {x: 1.0000046, y: 1.0000032, z: 1.0000052}
+    - name: UniqueID_4565
+      parentName: UniqueID_4553
+      position: {x: 8.34597, y: -42.5633, z: -23.265697}
+      rotation: {x: 0.01160631, y: 0.95957935, z: 0.2739264, w: 0.063538}
+      scale: {x: 1.0000008, y: 1.0000012, z: 1.0000013}
+    - name: UniqueID_4568
+      parentName: UniqueID_4565
+      position: {x: 0.015758514, y: -20.306807, z: 0.0023200512}
+      rotation: {x: 0.41773587, y: 0.04601369, z: 0.10552138, w: -0.9012462}
+      scale: {x: 1.0000005, y: 1.0000031, z: 1.0000014}
+    - name: UniqueID_4571
+      parentName: UniqueID_4568
+      position: {x: 0.016071796, y: -20.304985, z: 0.0002527237}
+      rotation: {x: -0.2667025, y: 0.005455815, z: -0.020481218, w: 0.96354586}
+      scale: {x: 1.0000011, y: 1.0000067, z: 1.000006}
+    - name: UniqueID_4655
+      parentName: UniqueID_4553
+      position: {x: -26.1876, y: -6.280947, z: 0.000033025655}
+      rotation: {x: 0.23680776, y: 0.6662714, z: -0.6662746, w: -0.23681794}
+      scale: {x: 1.0000029, y: 1.0000017, z: 1.0000036}
+    - name: UniqueID_4657
+      parentName: UniqueID_4655
+      position: {x: -8.919999, y: 0.0000010409931, z: -4.3799915}
+      rotation: {x: -0.000000022351742, y: 0.00000023841858, z: -0.000000014901161,
+        w: 1}
+      scale: {x: 1.0000015, y: 1.0000001, z: 1.0000007}
+    - name: UniqueID_4589
+      parentName: UniqueID_4553
+      position: {x: -2.7335117, y: -8.762265, z: -0.000007517287}
+      rotation: {x: -0.68501765, y: 0.19064817, z: -0.26465565, w: 0.65143037}
+      scale: {x: 1.0000035, y: 1.0000063, z: 1.0000046}
+    - name: UniqueID_4592
+      parentName: UniqueID_4589
+      position: {x: 1.8220804, y: -25.129198, z: 10.7319}
+      rotation: {x: 0.000009711831, y: -0.00000019744036, z: 0.6044389, w: -0.7966515}
+      scale: {x: 1.0000001, y: 1.0000055, z: 0.99999875}
+    - name: UniqueID_4595
+      parentName: UniqueID_4589
+      position: {x: 1.8220236, y: -25.129196, z: -10.7319}
+      rotation: {x: 0.0000012032687, y: -0.00000029988584, z: -0.6044389, w: 0.79665154}
+      scale: {x: 1.0000013, y: 1.0000094, z: 0.99999946}
+    - name: UniqueID_4598
+      parentName: UniqueID_4589
+      position: {x: 2.767549, y: -3.0152426, z: 0.000018288738}
+      rotation: {x: -0.11074004, y: 0.0030836002, z: 0.39345312, w: 0.9126455}
+      scale: {x: 1.0000001, y: 1, z: 0.99999684}
+    - name: UniqueID_4601
+      parentName: UniqueID_4598
+      position: {x: 0.0060567847, y: -7.605832, z: 0.00023679534}
+      rotation: {x: 0.033594854, y: 0.018300015, z: 0.009204308, w: -0.9992257}
+      scale: {x: 1.0000004, y: 0.9999992, z: 0.99999994}
+    - name: UniqueID_4604
+      parentName: UniqueID_4601
+      position: {x: 0.006047571, y: -7.605581, z: -0.0000020880252}
+      rotation: {x: -0.000000022351736, y: -0.000000014901158, z: -0.000000050815277,
+        w: 1}
+      scale: {x: 1.0000026, y: 1.0000018, z: 1.0000012}
+    - name: UniqueID_4607
+      parentName: UniqueID_4589
+      position: {x: 1.638841, y: -5.9668517, z: -1.0689498}
+      rotation: {x: -0.36299905, y: 0.5987491, z: -0.6054357, w: 0.37838975}
+      scale: {x: 0.9999998, y: 1, z: 1.0000019}
+    - name: UniqueID_4609
+      parentName: UniqueID_4589
+      position: {x: -0.10421848, y: -20.269796, z: 0.00005813231}
+      rotation: {x: -0.50327796, y: 0.49669978, z: -0.49669644, w: 0.5032825}
+      scale: {x: 0.9999992, y: 1.0000002, z: 1.000001}
+    - name: UniqueID_4611
+      parentName: UniqueID_4609
+      position: {x: -8.919988, y: 0.0000010409858, z: -4.380002}
+      rotation: {x: 0.000000029802322, y: 0.0000004917383, z: 0.000000029802322, w: 1}
+      scale: {x: 0.999999, y: 0.99999756, z: 1.0000013}
+    - name: UniqueID_4649
+      parentName: UniqueID_4553
+      position: {x: -25.42401, y: -48.62699, z: 8.425191}
+      rotation: {x: 0.7071067, y: 0.0002808571, z: 0.00028075982, w: -0.70710677}
+      scale: {x: 1.0000015, y: 1.000002, z: 1.0000018}
+    - name: UniqueID_4673
+      parentName: UniqueID_4553
+      position: {x: -20.20981, y: -35.245403, z: 9.57658}
+      rotation: {x: -0.056554355, y: 0.7262107, z: -0.6850348, w: -0.012119055}
+      scale: {x: 1.0000004, y: 0.9999996, z: 0.99999994}
+    - name: UniqueID_4628
+      parentName: UniqueID_4553
+      position: {x: -31.706696, y: 0.24972425, z: -15.5036}
+      rotation: {x: 0.0000004765153, y: -0.0000053048134, z: -0.00040053576, w: 0.99999994}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000011}
+    - name: UniqueID_4711
+      parentName: UniqueID_4553
+      position: {x: -19.882006, y: -35.1812, z: -8.604589}
+      rotation: {x: -0.0057801083, y: 0.7343965, z: -0.6772744, w: 0.043905977}
+      scale: {x: 1.0000023, y: 1.0000019, z: 1.0000011}
+    - name: UniqueID_4574
+      parentName: UniqueID_4553
+      position: {x: -28.370205, y: -19.893694, z: 0.000027225073}
+      rotation: {x: -0.10017936, y: 0.24401169, z: 0.8442108, w: -0.46661603}
+      scale: {x: 1.0000027, y: 1.0000046, z: 1.0000027}
+    - name: UniqueID_4577
+      parentName: UniqueID_4574
+      position: {x: 0.013137817, y: -21.2253, z: -0.000001067463}
+      rotation: {x: 0.120949194, y: -0.014254316, z: 0.03173986, w: 0.99204874}
+      scale: {x: 1.0000031, y: 1.0000062, z: 1.0000026}
+    - name: UniqueID_4580
+      parentName: UniqueID_4577
+      position: {x: 0.013320922, y: -16.990509, z: 0.000000047326466}
+      rotation: {x: 0.013537391, y: -0.001147195, z: -0.0124908, w: 0.9998297}
+      scale: {x: 0.9999991, y: 0.9999979, z: 1.0000002}
+    - name: UniqueID_4583
+      parentName: UniqueID_4580
+      position: {x: 0.012310027, y: -16.986807, z: 0.00000086383807}
+      rotation: {x: 0.00000015024594, y: -1.11961995e-10, z: 0.055745065, w: 0.99844503}
+      scale: {x: 1.0000005, y: 0.9999984, z: 0.9999991}
+    - name: UniqueID_4586
+      parentName: UniqueID_4583
+      position: {x: 0.012056349, y: -15.4874935, z: -0.0000000193686}
+      rotation: {x: 0.00000027869973, y: -0.000000054770293, z: 0.08556026, w: 0.996333}
+      scale: {x: 1.0000014, y: 1.0000017, z: 1.000001}
+    - name: UniqueID_4556
+      parentName: UniqueID_4553
+      position: {x: 8.346101, y: -42.563305, z: 23.265602}
+      rotation: {x: 0.21639515, y: -0.6211319, z: 0.7448073, w: 0.112384915}
+      scale: {x: 1.0000038, y: 1.0000032, z: 1.0000011}
+    - name: UniqueID_4559
+      parentName: UniqueID_4556
+      position: {x: 0.015714645, y: -20.306799, z: -0.0031511784}
+      rotation: {x: 0.41775492, y: 0.046020307, z: -0.105526395, w: 0.9012365}
+      scale: {x: 1.0000013, y: 1.0000062, z: 0.9999998}
+    - name: UniqueID_4562
+      parentName: UniqueID_4559
+      position: {x: 0.016116858, y: -20.305008, z: -0.00018119812}
+      rotation: {x: 0.26669988, y: -0.0054545403, z: -0.020480597, w: 0.96354663}
+      scale: {x: 0.99999946, y: 0.9999941, z: 1.0000027}
+    - name: UniqueID_4646
+      parentName: UniqueID_4553
+      position: {x: -27.069502, y: -19.051592, z: -21.3198}
+      rotation: {x: 0.7071063, y: 0.00083628285, z: -0.0002913191, w: 0.70710677}
+      scale: {x: 1.0000018, y: 1.000002, z: 1.0000001}
+    - name: UniqueID_4643
+      parentName: UniqueID_4553
+      position: {x: -27.069405, y: -19.05159, z: 21.32}
+      rotation: {x: 0.7071063, y: 0.00083690125, z: 0.00028651807, w: -0.7071067}
+      scale: {x: 1.0000004, y: 1.0000006, z: 0.99999994}
+    - name: UniqueID_4519
+      parentName: UniqueID_4493
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UniqueID_4495
+      parentName: UniqueID_4493
+      position: {x: 24.3117, y: 1.0278708, z: 110.52}
+      rotation: {x: -0.011696607, y: -0.30468667, z: -0.0019923747, w: -0.95237875}
+      scale: {x: 1.0000012, y: 1.0000012, z: 1.0000015}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

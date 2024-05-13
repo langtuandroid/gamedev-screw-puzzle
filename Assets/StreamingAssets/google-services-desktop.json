@@ -1,0 +1,31 @@
+{
+  "project_info": {
+    "project_number": "290167338406",
+    "project_id": "unity-test-gamedev",
+    "storage_bucket": "unity-test-gamedev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290167338406:ios:5f8e1ef3b636ed47f64b67",
+        "android_client_info": {
+          "package_name": "com.gamedev.digital.test"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXFva-3WF0Ry1G_8ubDz41Y8Wrmffvkow"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

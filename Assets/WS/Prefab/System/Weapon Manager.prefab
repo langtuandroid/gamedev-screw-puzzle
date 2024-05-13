@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7891917263334550493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1710513271324342544}
+  - component: {fileID: 3522551323777876678}
+  m_Layer: 0
+  m_Name: Weapon Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 4162164826716764455, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1710513271324342544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7891917263334550493}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.06, y: -3.96, z: -3.2309086}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3522551323777876678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7891917263334550493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d050edd4d19769428bd527f17bb0576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwSpeed: 50
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  WeaponList:
+  - {fileID: 3544495177541760775, guid: 15144a1881d07cf498427e74d519f048, type: 3}
+  - {fileID: 7509461215034025265, guid: ed29dbe77c1654a87aa4c74c542d8631, type: 3}
+  - {fileID: 7509461215034025265, guid: 7e793027584094956a4748b20278114c, type: 3}
+  - {fileID: 7509461215034025265, guid: 0f25f388bdf2b4c08ba4f3abb807a992, type: 3}
+  - {fileID: 7509461215034025265, guid: 46ba7a3bea44245cb88023f852bf6ffe, type: 3}
+  - {fileID: 7509461215034025265, guid: 8be0482f8d6314331990b2f58be69dc7, type: 3}
+  - {fileID: 7509461215034025265, guid: 54e6c6fac7095462a87f571d17f26b43, type: 3}
+  - {fileID: 7509461215034025265, guid: 3cffd727584884c169e0c3f4e3cda655, type: 3}
+  - {fileID: 7509461215034025265, guid: de22153210aca4c0ab4fe39940547f8b, type: 3}
+  - {fileID: 7509461215034025265, guid: 2041fb01012cf456f810f9d8beb7be8b, type: 3}
+  - {fileID: 7509461215034025265, guid: 99e3f270bb0c746b28d14577a2b2a929, type: 3}
+  - {fileID: 7509461215034025265, guid: 120f4ab45ab56436b8b84e37e3eae651, type: 3}
+  currentWeapon: {fileID: 3544495177541760775, guid: 15144a1881d07cf498427e74d519f048,
+    type: 3}
+  pickedWeapon: {fileID: 0}
+  soundThrow: {fileID: 8300000, guid: 7f72ed1226e1ccc4097e54c7bbc1f5b4, type: 3}
+  numberOfKnifeMax: 0
+  numberOfKnife: 0

@@ -3,11 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - BOLT
-  - Fill
-  - CUBE
-  - MASk
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -15,13 +11,13 @@ TagManager:
   - 
   - Water
   - UI
-  - cubes
-  - Obstacles
-  - Top
-  - Down
   - 
   - 
-  - CubeMask
+  - Target
+  - Knife
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -42,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2266520981
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Knife
+    uniqueID: 3920393617
+    locked: 0
+  - name: Target
+    uniqueID: 3244511741
     locked: 0
